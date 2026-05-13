@@ -3,7 +3,7 @@ title: "Campionamento Stratificato (scuole italiane)"
 tags: [campionamento, statistica, PTOF, metodologia]
 created: 2026-05-13
 updated: 2026-05-13
-sources: [2026-0513-172544_orienta-campionamento.md]
+sources: [2026-0513-172544_orienta-campionamento.md, 2026-0513-220000_catena-numeri-orienta.md]
 ---
 
 # Campionamento Stratificato
@@ -31,9 +31,18 @@ Totale: 2 × 5 × 2 × 5 = **100 strati potenziali**
 4. **Validazione** — completezza e coerenza
 5. **Pulizia codici** — rimozione file "impostori" (PTOF con codice meccanografico errato)
 
-## Risultati
+## Catena operativa
 
-- 78 cicli di estrazione
-- 15.035 scuole selezionate
-- 3.082 PTOF scaricati (resa 54,1%)
-- ~300 entry non valide rimosse nella fase di pulizia
+| Passaggio | Dato | Fonte |
+|-----------|------|-------|
+| Popolazione | 61.854 plessi MIM → ~19.365 istituzioni uniche | `SCUANAGRAFESTAT*.csv` + `SCUANAGRAFEPAR*.csv` |
+| Scuole selezionate | 15.035 in 78 cicli | `strata_cycle_registry.jsonl` |
+| Tentativi download | 9.984 (5.399 riusciti + 4.585 falliti) | `strata_cycle_state.json` |
+| Resa download | **54,1%** (5.399 / 9.984) | `strata_cycle_state.json` |
+| Istituti unici raggiunti | **3.082** | PRIN avanzamento |
+| File entrati in pulizia | **2.584** (~500 scartati: non-PTOF, corrotti) | `ptof_cleaner.log` |
+| Dopo bonifica codici | **2.095** (−289 «impostori» rimossi) | `ptof_cleaner.log` + `analysis_summary.csv` |
+| Campione secondaria | **939** (693 II grado + 246 I grado) | `analysis_summary.csv` |
+| Letture qualitative | 16 PTOF II grado | PRIN avanzamento |
+
+Il passaggio 2.584 → 2.295 (−289) corrisponde ai «circa trecento» rimossi nella bonifica dei codici meccanografici.

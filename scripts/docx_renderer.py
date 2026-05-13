@@ -175,9 +175,9 @@ class TrEPRESSRenderer:
             self.add_author(author)
 
     def add_chapter_number(self, number):
-        """CAPITOLO X, centrato, 14pt."""
+        """Capitolo X, centrato, 14pt."""
         p = _new_paragraph(self.doc, ALIGN_CENTER)
-        _add_run(p, f"CAPITOLO {number}", size=SIZE_CHAPTER)
+        _add_run(p, f"Capitolo {number}", size=SIZE_CHAPTER)
         return p
 
     def add_chapter_title(self, title):
@@ -192,10 +192,15 @@ class TrEPRESSRenderer:
         _add_run(p, name, size=SIZE_BODY, italic=True)
         return p
 
+    def add_section_heading(self, title):
+        """Sezione senza numero, centrata, 12pt."""
+        p = _new_paragraph(self.doc, ALIGN_CENTER)
+        _add_run(p, title, size=SIZE_BODY)
+        return p
+
     def add_section(self, number, title):
-        """Paragrafo: '1. Titolo', giustificato, con rientro prima riga."""
-        p = _new_paragraph(self.doc, ALIGN_JUSTIFY)
-        _set_indent(p, first_line=INDENT_FIRST_LINE_TWIPS)
+        """Sezione: '1. Titolo', centrata, 12pt."""
+        p = _new_paragraph(self.doc, ALIGN_CENTER)
         _add_run(p, f"{number}. {title}", size=SIZE_BODY)
         return p
 
@@ -384,16 +389,14 @@ def markdown_to_docx(md_content, template_path):
         # Headings
         if stripped.startswith('# '):
             text = stripped[2:].strip()
-            if text.upper().startswith('CAPITOLO '):
-                renderer.add_chapter_number(text[len('CAPITOLO '):].strip())
-            else:
-                renderer.add_chapter_title(text)
+            renderer.add_chapter_title(text)
         elif stripped.startswith('## '):
             text = stripped[3:].strip()
-            if text.upper().startswith('CAPITOLO '):
-                renderer.add_chapter_number(text[len('CAPITOLO '):].strip())
+            m = re.match(r'^(\d+)\.\s+(.+)$', text)
+            if m:
+                renderer.add_section(m.group(1), m.group(2))
             else:
-                renderer.add_chapter_title(text)
+                renderer.add_section_heading(text)
         elif stripped.startswith('### '):
             renderer.add_author(stripped[4:].strip())
         elif stripped.startswith('#### '):

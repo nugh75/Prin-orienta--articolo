@@ -26,6 +26,7 @@ Apply these rules when writing, revising, or translating content.
 | 10 | **Lists** | Use bulleted/numbered lists only when strictly necessary. Prefer prose. |
 | 11 | **Thematic unity** | Each theme must be opened, developed, and concluded within a single section. Every new term/concept must be briefly glossed on first mention; the full treatment belongs in the section dedicated to that concept. |
 | 12 | **Linear argumentation** | The argument flow must be strictly linear — never introduce a concept whose comprehension depends on material that appears later in the text. |
+| 13 | **Anafore univoche e zero** | Ogni pronome anaforico (questo, questa, ciò, esso, ella, loro, il, la, le, i, un, tale, simile, stesso, medesimo) deve avere un solo antecedente plausibile nel contesto immediato. Verificare sempre: a quale sostantivo rimanda il pronome? Se la risposta non è immediata, riscrivere. Analogamente, le anafore zero (soggetto o complemento omesso perché recuperabile dal contesto) devono essere interpretabili con certezza: se il lettore deve dedurre l'agente dall'azione verbale o dalla coesione testuale, il rischio di ambiguità è alto. In caso di dubbio, esplicitare il nome. |
 
 ## Diplomacy & Criticism
 

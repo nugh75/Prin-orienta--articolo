@@ -1,0 +1,595 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[italian]{babel}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{eso-pic}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{caption}
+\usepackage{setspace}
+
+\geometry{margin=2.5cm}
+\setlength{\headheight}{13.6pt}
+\onehalfspacing
+
+% Colori coerenti con la presentazione
+\definecolor{BannerBlue}{RGB}{32,96,160}
+\definecolor{BannerBlueDark}{RGB}{16,40,80}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=BannerBlueDark,
+  urlcolor=BannerBlue,
+  citecolor=BannerBlueDark
+}
+
+\titleformat{\section}{\Large\bfseries\color{BannerBlueDark}}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries\color{BannerBlue}}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{BannerBlueDark}}{\thesubsubsection}{1em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textit{PRIN 2022 -- Quaderno di ricerca}}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\title{%
+  \vspace{-1cm}
+  {\Large\bfseries\color{BannerBlueDark} Indagine nazionale sull'orientamento nella scuola}\\[0.6em]
+  {\large Ricerca-formazione per la sperimentazione di un modello\\di orientamento formativo e lo sviluppo di una community on line}\\[1.2em]
+  {\normalsize\color{BannerBlue} PRIN 2022 -- Codice Progetto MUR: 20223JY7NS\\CUP: F53D23006130006}\\[1em]
+  {\normalsize\itshape Quaderno di ricerca -- Stato di avanzamento e contributo per la discussione}
+}
+\author{%
+  Prof.\ Massimo Margottini\\
+  \small Universit\`a Roma Tre -- Dipartimento di Scienze della Formazione\\[0.4em]
+  \small\textit{Principal Investigator}
+}
+\date{Febbraio 2026}
+
+\begin{document}
+
+% Prima pagina senza header/footer
+\thispagestyle{empty}
+
+% Banner a filo in alto, bordo a bordo
+\AddToShipoutPictureBG*{%
+  \AtPageUpperLeft{%
+    \hspace*{-0.5mm}\raisebox{-\height}{%
+      \includegraphics[width=\dimexpr\paperwidth+2mm\relax]{banner.png}%
+    }%
+  }%
+}%
+
+\maketitle
+
+\vfill
+\begin{center}
+\small
+Missione 4, Componente 2 (M4C2) -- Investimento 1.1\\
+Piano Nazionale di Ripresa e Resilienza (PNRR)\\
+Finanziato dall'Unione Europea \textit{Next Generation EU}
+\end{center}
+
+\newpage
+\tableofcontents
+\newpage
+
+% ===================================================================
+%  SEZIONE 1 -- IL PROGETTO PRIN
+% ===================================================================
+\section{Il Progetto PRIN 2022}
+
+Il progetto assume una visione dell'orientamento come processo formativo attraverso il quale la persona sviluppa la capacit\`a di \textbf{dirigere se stessa} (Pellerey), costruendo la propria identit\`a in relazione al contesto sociale e alle sfide collettive -- sostenibilit\`a, giustizia sociale, convivenza democratica (per i fondamenti teorici si veda la Sezione~\ref{sec:quadro_teorico}).
+
+Il PRIN 2022 si articola in due macro-azioni integrate: (1)~un'\textbf{indagine nazionale} su campione rappresentativo, con strumenti differenziati per ordine e grado, finalizzata a mappare lo stato di attuazione delle pratiche di orientamento; (2)~la costruzione e sperimentazione del modello \textbf{RiFormOrienta}, un modello di orientamento formativo i cui fondamenti sono illustrati nella Sezione~\ref{sec:quadro_teorico}.
+
+Il progetto \`e stato finanziato nell'ambito della Missione~4, Componente~2 (M4C2), Investimento 1.1 del Piano Nazionale di Ripresa e Resilienza (PNRR), con fondi dell'Unione Europea \textit{Next Generation EU}. Il periodo di attivit\`a si estende da novembre 2023 a febbraio 2026.
+
+\subsection{Unit\`a di ricerca e collaborazioni}
+
+La struttura del progetto ha previsto cinque unit\`a locali di ricerca, ciascuna con specifiche competenze e ambiti di intervento, oltre alla collaborazione con INVALSI, che ha curato il campionamento stratificato dei questionari e la loro somministrazione su scala nazionale.
+
+\begin{description}[style=nextline, leftmargin=1.5cm]
+  \item[\textbf{Universit\`a Roma Tre}] M.~Margottini (PI), C.~Angelini, V.~Carbone, D.~Coco, F.~De Carlo, D.~Dragoni, C.~La Rocca, F.~Luppi. Coordinamento nazionale, elaborazione questionari secondarie, sperimentazione modello RiFormOrienta, analisi PTOF, formazione docenti tutor PEF, modulo interdisciplinare sostenibilit\`a, focus group, CounselorBot, systematic review.
+  \item[\textbf{Universit\`a di Urbino}] R.~Travaglini, M.~Rizzardi, R.~Castorina, B.~Tognazzi, G.~Donnini, G.~Patregnani. Sperimentazione nell'infanzia e nella primaria con focus sulle \textit{non-cognitive skills} e sull'intelligenza emotiva di tratto.
+  \item[\textbf{Universit\`a di Trieste}] P.~Sorzio, C.~Bembich, L.\,C.~Foschi, M.~Pieri. Modello ``S\`e Possibile'' per studenti con BES (14--19 anni), partenariato con il Centro Regionale Orientamento FVG.
+  \item[\textbf{Universit\`a di Messina}] G.~Amenta, R.~Romano. Modello di orientamento educativo fondato sull'Analisi Transazionale, scheda osservativa ``agire adattato'', studio di caso.
+  \item[\textbf{Universit\`a di Bari}] M.~Baldassarre, A.~Fornasari, V.~Tamborra. Portale dell'orientamento, community online, MOOC e OER per la formazione permanente.
+\end{description}
+
+Il \textbf{Comitato scientifico} \`e composto da: M.~Margottini (Roma Tre), G.~Amenta (Messina), M.~Baldassarre (Bari), P.~Sorzio (Trieste), R.~Travaglini (Urbino), C.~Angelini (Roma Tre), V.~Carbone (Roma Tre), F.~De Carlo (Roma Tre), C.~La Rocca (Roma Tre). In qualit\`a di collaboratore esterno, l'\textbf{INVALSI} (V.~Tortora, L.~Maraviglia) ha curato il campionamento e la somministrazione dei questionari (cfr.\ Sezione~\ref{sec:indagine}).
+
+
+% ===================================================================
+%  SEZIONE 2 -- QUADRO TEORICO E NORMATIVO
+% ===================================================================
+\section{Quadro teorico e normativo}
+\label{sec:quadro_teorico}
+
+\subsection{Fondamenti teorici del modello RiFormOrienta}
+
+Il modello RiFormOrienta assume una cornice \textbf{socio-costruttivista} dell'apprendimento e dello sviluppo, in cui la narrazione di s\'e, l'esperienza situata, l'interazione sociale e la riflessione metacognitiva costituiscono dispositivi centrali per la costruzione dell'identit\`a. L'orientamento \`e definito come \textit{ecosistema di azioni formative, informative e consulenziali}, finalizzato a promuovere l'empowerment cognitivo, relazionale e sociale dello studente, insieme alle convinzioni di autoefficacia e alle abilit\`a autoregolative. In questa prospettiva assumono un ruolo centrale le \textit{non-cognitive skills} -- resilienza, motivazione, collaborazione, gestione dello stress, pensiero critico, equilibrio emotivo, proattivit\`a, intraprendenza -- e l'\textbf{intelligenza emotiva di tratto}, intesa come capacit\`a di percepire, comprendere e regolare le emozioni proprie e altrui. Come sottolineato da Heckman, tali abilit\`a risultano pi\`u predittive del successo nella vita adulta rispetto ai soli risultati cognitivi: non sono elementi ancillari, ma co-fattori che interagiscono con le competenze cognitive nella costruzione dell'identit\`a e nella qualit\`a delle scelte.
+
+Sul piano dei processi sottostanti, il modello riconosce la priorit\`a della \textbf{mente implicita}: i meccanismi di \textit{autoregolazione omeostatica} operano a tutti i livelli -- da quello pulsionale a quello emotivo, cognitivo e socio-relazionale -- e influenzano anche le funzioni pi\`u complesse (memoria, socializzazione, metacognizione, creativit\`a), condizionando la qualit\`a delle scelte orientative prima ancora che il soggetto ne acquisisca piena consapevolezza.
+
+\subsection{Il quadro normativo}
+
+Sul versante normativo, il progetto si allinea alle \textbf{Linee Guida per l'Orientamento} (D.M.~328/2022), che enfatizzano l'orientamento come responsabilit\`a condivisa e processuale, e agli investimenti NGEU che sollecitano innovazione metodologica, digitalizzazione e sostenibilit\`a. Il PTOF, i PEF e l'ePortfolio sono dispositivi chiave per vincolare la dimensione formativa dell'orientamento alle pratiche curricolari e valutative.
+
+Il D.M.~328/2022 ha introdotto significative novit\`a operative, tra cui l'obbligo delle 30 ore annuali di orientamento, la figura del docente tutor e del docente orientatore, e l'adozione della piattaforma Unica con il curriculum dello studente. Questi strumenti, tuttavia, come emerso dall'indagine, risultano ancora in fase di radicamento nelle pratiche scolastiche, con frequente percezione di adempimento burocratico piuttosto che di genuina innovazione pedagogica.
+
+
+% ===================================================================
+%  SEZIONE 3 -- DISEGNO METODOLOGICO
+% ===================================================================
+\section{Disegno metodologico}
+
+\subsection{Obiettivi e domande di ricerca}
+
+Il progetto si articola intorno a quattro obiettivi principali:
+
+\begin{description}[style=nextline, leftmargin=0.5cm]
+  \item[\textbf{O1}] Mappare lo stato di attuazione delle attivit\`a di orientamento nella scuola italiana, in coerenza con gli indirizzi ministeriali, con attenzione a ruoli, strumenti, pratiche e reti.
+  \item[\textbf{O2}] Ricostruire un repertorio di metodologie e pratiche scientificamente fondate, identificando criticit\`a e fattori abilitanti.
+  \item[\textbf{O3}] Costruire, applicare e validare il modello RiFormOrienta nei diversi ordini e gradi, documentandone gli esiti su docenti e studenti e producendo risorse formative.
+  \item[\textbf{O4}] Sviluppare un ambiente digitale aperto per la condivisione di prodotti, buone pratiche e percorsi formativi (OER/MOOC), a sostegno di una community nazionale.
+\end{description}
+
+\subsection{Indagine nazionale}
+\label{sec:indagine}
+
+Sono stati predisposti quattro questionari, differenziati per ordine e grado: infanzia e primaria (a cura dell'Unit\`a di Urbino) e secondaria di primo e secondo grado (a cura dell'Unit\`a di Roma Tre). I questionari sono rivolti a \textbf{dirigenti scolastici e figure di sistema} (referenti per l'orientamento, funzioni strumentali, docenti tutor) e presentano una \textbf{struttura bipartita}: una \textit{sezione comune} a tutti gli ordini, volta a rilevare le dimensioni trasversali dell'orientamento (organizzazione, strumenti, formazione, reti territoriali, monitoraggio), e una \textit{sezione differenziata} per ciascun ordine e grado, calibrata sulle specificit\`a curricolari e organizzative. Gli strumenti sono stati discussi collegialmente tra tutte le unit\`a, revisionati e sottoposti a \textit{tryout} qualitativo tramite \textbf{focus group} con docenti (gennaio--febbraio 2025).
+
+Il disegno campionario, elaborato da INVALSI, \`e di tipo \textbf{stratificato} secondo due dimensioni principali: una \textbf{socio-geografica}, che incrocia la collocazione Centro-Nord / Sud con il carattere metropolitano o non-metropolitano del comune sede della scuola, e una relativa all'\textbf{ordine e grado} di istruzione. Per la secondaria di II grado \`e stata aggiunta un'ulteriore stratificazione per \textbf{tipologia di indirizzo} (licei tradizionali, altri licei, istituti tecnici, istituti professionali), per un totale di 16 strati. Il campione teorico complessivo comprende circa 960 scuole (160 per ciascuno dei quattro ordini: infanzia, primaria, secondaria di I grado; 480 per la secondaria di II grado), a cui si aggiungono tutti i CPIA contattati in forma censuaria (i dati relativi ai CPIA sono tuttora in fase di raccolta e saranno oggetto di analisi successive). La somministrazione \`e avvenuta in modalit\`a \textbf{CAWI} (\textit{Computer-Assisted Web Interviewing}), con procedura di sostituzione entro strato in caso di mancata risposta dopo almeno due solleciti, e pesi di post-stratificazione (calibrazione) per correggere eventuali distorsioni. Il tasso di risposta si \`e attestato intorno al 25\%, incrementato tramite sollecitazione telefonica (ottobre--novembre 2025) e integrato da focus group di approfondimento (dicembre 2025; cfr.\ Sezione~\ref{sec:roma_tre}).
+
+Parallelamente \`e stata condotta un'\textbf{analisi AI} di circa 2\,000 PTOF delle scuole secondarie tramite il sistema ORIENTA+ (cfr.\ Sezione~\ref{sec:roma_tre}).
+
+\subsection{Ricerca-formazione}
+
+Il modello \textbf{RiFormOrienta} \`e stato applicato in classi della secondaria di II grado nell'ambito delle azioni \textit{Next Generation}, adottando metodologie attive e integrando i \textbf{PCTO} come dispositivo curriculare di raccordo tra formazione e mondo del lavoro (per le metodologie specifiche e gli esiti si veda la Sezione~\ref{sec:roma_tre}). Il \textbf{campionamento} per la componente di ricerca-formazione \`e di tipo \textbf{non probabilistico, per convenienza} (Corbetta, 2014): le scuole e i docenti coinvolti sono stati selezionati sulla base della disponibilit\`a e dell'adesione volontaria, secondo una logica di collaborazione scuola-universit\`a coerente con il paradigma della ricerca-formazione.
+
+Nell'ambito dei \textbf{Percorsi di Formazione iniziale (PEF)} sono stati formati i docenti tutor e sviluppato un format di \textbf{Portfolio docente}; \`e stato inoltre progettato un \textbf{modulo interdisciplinare sulla sostenibilit\`a}. Per i dettagli di entrambe le azioni si rimanda alla Sezione~\ref{sec:roma_tre}.
+
+\subsection{Infrastruttura digitale}
+
+L'Unit\`a di Bari ha sviluppato il \textbf{portale dell'orientamento} (\texttt{prinorientamento.forpsicom-uniba.it}), descritto nella Sezione~\ref{sec:bari}.
+
+\subsection{Triangolazione delle fonti e criteri di analisi}
+
+Ogni unit\`a \`e stata analizzata secondo una \textbf{griglia comune} per garantire confrontabilit\`a, articolata nelle dimensioni: contesto, attivit\`a svolte, evidenze chiave, criticit\`a e priorit\`a. La logica comparativa opera a due livelli: \textit{intra-unit\`a} (confronto tra fonti diverse all'interno della stessa unit\`a) e \textit{inter-unit\`a} (confronto territoriale tra le cinque sedi). La triangolazione integra dati quantitativi (questionari INVALSI), dati qualitativi (focus group, analisi documentale) e analisi testuale AI dei PTOF, coprendo tutti gli ordini di scuola dall'infanzia alla secondaria di~II grado, inclusi CFP e CPIA.
+
+
+% ===================================================================
+%  SEZIONE 4 -- CONTRIBUTI DELLE UNITÀ
+% ===================================================================
+\section{Contributi delle unit\`a di ricerca}
+
+\subsection{Unit\`a di Roma Tre}
+\label{sec:roma_tre}
+
+L'Unit\`a di Roma Tre, in qualit\`a di sede del Principal Investigator, ha svolto la funzione di \textbf{coordinamento nazionale} per l'intero arco del progetto, garantendo incontri preliminari (novembre 2023 -- febbraio 2024) e un lavoro di raccordo quindicinale tra tutte le unit\`a.
+
+\subsubsection{Questionari per la secondaria di I e II grado}
+
+L'Unit\`a ha progettato i \textbf{questionari} per le scuole secondarie di I e di II grado, somministrati sul campione nazionale descritto nella Sezione~\ref{sec:indagine}.
+
+\paragraph{Prime evidenze dalla secondaria di II grado.}
+Le prime analisi esplorative sui dati del questionario per la secondaria di II grado (N\,=\,353 scuole) restituiscono un quadro in cui a una diffusa consapevolezza dichiarativa si affiancano pratiche operative ancora disomogenee.
+
+Le \textbf{finalit\`a orientative nei PTOF} risultano ampiamente condivise: sia la valorizzazione di attitudini e interessi (M\,=\,3,50/4) sia l'accompagnamento nelle transizioni formative (M\,=\,3,47/4) raggiungono valori elevati. Il \textbf{rapporto con l'universit\`a} \`e giudicato utile da circa l'80\% dei docenti per aggiornamenti su teorie, metodologie e strumenti, indipendentemente dall'aver frequentato corsi specifici.
+
+Il \textbf{coinvolgimento delle famiglie} \`e il punto pi\`u critico: a fronte di un rapporto scuola-genitori dichiarato dall'84\% degli istituti, le pratiche strutturate restano rare -- monitoraggio tramite questionari ai genitori (24\%), raccolta di feedback sul Curriculum dello studente (12,5\%). Quanto agli \textbf{studenti}, il coinvolgimento strumentale (questionari autovalutativi) \`e diffuso, mentre la dimensione pi\`u formativa -- auto-narrazione e riflessione sul percorso personale -- resta la meno sviluppata.
+
+La \textbf{rete territoriale} con aziende e servizi appare consolidata (58\% delle scuole al livello alto), mentre la collaborazione con le istituzioni locali presenta margini di sviluppo significativi (45\% al livello alto).
+
+Un dato particolarmente significativo emerge dal confronto tra la \textbf{diffusione attuale} e quella \textbf{desiderata} dei principali strumenti orientativi e dall'analisi dell'\textbf{ecosistema territoriale} (Figura~\ref{fig:quadro_questionari}). Nel I grado il divario pi\`u critico riguarda gli \textit{strumenti riflessivi} (ePortfolio): la quasi totalit\`a delle scuole ne riconosce l'importanza (Desiderato $\approx$\,80\%), ma l'adozione effettiva resta ferma sotto il 50\%. Nel II grado la discrepanza maggiore si sposta sui \textit{test attitudinali}, con una domanda latente altissima ($\approx$\,90\%) a fronte di un'offerta attuale appena sufficiente ($\approx$\,55\%). Sul piano delle reti, nel I grado le collaborazioni pi\`u solide si registrano con licei e istituti tecnici (continuit\`a verticale), mentre il collegamento con l'universit\`a resta debole (1,6/4); nel II grado l'interlocutore privilegiato \`e proprio l'universit\`a (score $>$\,3), ma i rapporti con enti locali e formazione professionale appaiono frammentati.
+
+\begin{figure}[p]
+\centering
+\begin{tabular}{@{}cc@{}}
+\includegraphics[width=0.54\textwidth]{gap_strumenti_I_grado.png} &
+\includegraphics[width=0.54\textwidth]{gap_strumenti_II_grado.png} \\[1em]
+\includegraphics[width=0.48\textwidth]{ecosistema_I_grado.png} &
+\includegraphics[width=0.48\textwidth]{ecosistema_II_grado.png} \\
+\end{tabular}
+\caption{Prime evidenze dai questionari. In alto: gap tra diffusione attuale e desiderata degli strumenti orientativi (I e II grado). In basso: intensit\`a delle collaborazioni territoriali (scala 1--4).}
+\label{fig:quadro_questionari}
+\end{figure}
+
+\subsubsection{Il modello RiFormOrienta}
+
+Nell'ambito dei \textbf{Percorsi di Formazione iniziale (PEF)}, nel periodo gennaio--marzo 2024, \`e stata realizzata la \textbf{formazione dei docenti tutor} su orientamento formativo ed ePortfolio studente, con l'introduzione del Portfolio docente come dispositivo riflessivo.
+
+Successivamente, il modello \textbf{RiFormOrienta} \`e stato applicato in classi della secondaria di II grado nell'ambito delle azioni \textit{Next Generation}, con formazione in situazione per i docenti curriculari (aprile--giugno 2025). Il modello, fondato sulla centralit\`a della narrazione, dell'empowerment e delle \textit{non-cognitive skills}, \`e stato validato in un progetto pilota con 9 docenti tutor e le rispettive classi (il dettaglio sul numero di studenti coinvolti e sugli esiti sar\`a disponibile nel rapporto finale).
+
+L'unit\`a ha inoltre sviluppato un \textbf{modulo interdisciplinare sulla sostenibilit\`a}, ispirato a una \textbf{dimensione olistica} dell'orientamento che colloca lo studente nel \textbf{contesto-mondo} e nella relazione tra progetto di vita individuale e responsabilit\`a collettiva verso la \textbf{sostenibilit\`a ambientale e culturale}. Il modulo si inscrive nel quadro dei documenti europei di riferimento, in particolare il \textbf{GreenComp} -- \textit{European Sustainability Competence Framework} (2022) e il documento \textbf{\textit{Learning for the Green Transition and Sustainable Development}} (2022) --, assumendone le competenze chiave (pensiero sistemico, adattamento, azione collettiva) come traguardi formativi. Il percorso \`e completo di rubriche valutative e strumenti di rilevazione ingresso/uscita, ed \`e stato sviluppato attraverso fasi progressive: elaborazione dei materiali (marzo--aprile 2024), tryout (maggio--giugno 2024), validazione in tirocinio (ottobre 2024 -- maggio 2025) e pilota sul campo (ottobre 2025 -- gennaio 2026), con approvazione del Comitato etico di Ateneo.
+
+Tra le ulteriori realizzazioni si segnalano \textbf{CounselorBot} (chatbot per l'orientamento) e una \textbf{systematic review} sull'orientamento formativo (cfr.\ Sezione~\ref{sec:disseminazione}).
+
+\subsubsection{Focus group sull'orientamento}
+
+Il focus group, condotto il 19 dicembre 2025 in modalit\`a videoconferenza, ha avuto carattere \textbf{esplorativo} e ha coinvolto tre docenti di scuole secondarie e centri di formazione professionale del Lazio. L'esiguit\`a del campione non consente generalizzazioni, ma offre indicazioni qualitative utili a orientare approfondimenti futuri. I temi affrontati hanno riguardato la percezione dell'orientamento nel curricolo, le 30 ore previste dal D.M.~328/2022, il tutoring e le resistenze istituzionali.
+
+Le principali \textbf{criticit\`a emerse} riguardano diversi livelli del sistema. Si registra innanzitutto una marcata \textbf{burocratizzazione delle 30 ore}, con la piattaforma Unica percepita come mero adempimento amministrativo; l'orientamento risulta ancora in larga parte ridotto a ``informazione sulle scuole superiori'', con una limitata declinazione formativa. Sul piano organizzativo, emerge una \textbf{governance fragile}: il docente tutor risulta spesso isolato, privo di una rete d'istituto strutturata, e si registra un'\textbf{assenza di formazione specifica} per i docenti incaricati dell'orientamento. A ci\`o si aggiunge una \textbf{cultura professionale resistente}, in cui molti docenti non hanno ancora interiorizzato la didattica orientativa e percepiscono l'orientamento come tempo sottratto all'attivit\`a valutativa. Infine, il \textbf{monitoraggio risulta carente}: mancano azioni sistematiche di valutazione dell'efficacia degli interventi orientativi.
+
+L'indicazione chiave emersa \`e la necessit\`a di costruire \textbf{comunit\`a di pratica interne} agli istituti per superare l'isolamento del tutor orientatore e promuovere una cultura condivisa dell'orientamento formativo.
+
+\subsubsection{Analisi dei PTOF}
+
+L'Unit\`a di Roma Tre ha condotto un'ampia analisi dei Piani Triennali dell'Offerta Formativa delle scuole secondarie, articolata in una \textbf{doppia lettura}: qualitativa (lettura umana) e automatizzata (lettura con AI).
+
+\paragraph{Lettura umana.}
+\`E stata realizzata un'\textbf{analisi qualitativa approfondita} di un campione di 16 PTOF di scuole secondarie di II grado, distribuiti su tutto il territorio nazionale e rappresentativi di tipologie scolastiche diverse: licei, istituti tecnici e professionali, scuole statali e paritarie, collocate in contesti metropolitani, urbani e di area interna.
+
+I PTOF analizzati risultano generalmente \textbf{aggiornati alle normative recenti} sull'orientamento (D.M.~n.~328/2022, D.M.~n.~934/2022, D.D.~n.~1452/2022, D.M.~n.~233/2024), recependo le figure dei docenti tutor e degli orientatori, i Percorsi di Formazione Scuola-Lavoro e le pi\`u moderne metodologie didattico-orientative. L'orientamento emerge, nella maggior parte delle scuole, come \textbf{processo continuo e trasversale}, superando la concezione tradizionale degli anni Ottanta -- in cui prevaleva un approccio psicometrico ed episodico, poco integrato nel curricolo -- verso un modello pi\`u ampio che integra innovazione, inclusione, formazione, crescita personale e consapevolezza.
+
+Sul piano del \textbf{rapporto con il territorio}, le scuole mostrano, con intensit\`a diversa, un radicamento significativo nel contesto socio-economico locale. Sono frequenti convenzioni e collaborazioni con enti locali, universit\`a, ITS, associazioni di categoria, terzo settore e imprese, finalizzate a PCTO, tirocini, progetti di cittadinanza attiva e iniziative sulla transizione ecologica e digitale.
+
+Le scuole dichiarano l'adozione di \textbf{metodologie variegate e aggiornate}: approcci narrativi (diari di bordo), \textit{cooperative learning}, didattica per competenze e laboratoriale, \textit{flipped classroom}. Gli strumenti principali includono e-portfolio, colloqui individuali di counseling, mentoring e coaching. Si registra un buon recepimento delle Linee guida, con l'introduzione sistematica delle figure professionali di docente tutor e docente orientatore.
+
+L'analisi qualitativa ha tuttavia evidenziato \textbf{lacune ricorrenti}:
+\begin{itemize}[nosep]
+  \item \textbf{assenza di impostazione teorica}: nessun PTOF fa riferimento alle teorie orientative sottostanti, con prevalenza del ``fare'' sulla riflessione;
+  \item \textbf{mancanza di team dedicati} per inclusione e orientamento, e \textbf{monitoraggio inadeguato};
+  \item orientamento spesso non strutturato in una \textbf{sezione autonoma}, ma disperso in riferimenti frammentari legati ai soli PCTO;
+  \item indicazioni vaghe su ruoli e numeri dei docenti tutor/orientatori e \textbf{formazione specifica} raramente documentata;
+  \item assenza di riferimenti a piattaforme digitali avanzate, AI e \textit{learning analytics} (a eccezione di UNICA).
+\end{itemize}
+
+In sintesi, i PTOF mostrano una rielaborazione autonoma delle normative, non limitata a riproduzione formale. Tuttavia, persistono differenze significative tra scuole con sistemi maturi e scuole dove l'orientamento resta implicito. Emerge una \textbf{debolezza sul piano teorico e sistemico}: le azioni appaiono spesso frammentarie pi\`u che frutto di una visione pedagogica condivisa.
+
+\paragraph{Lettura con AI (sistema ORIENTA+).}
+Parallelamente alla lettura umana, \`e stata condotta un'analisi automatizzata su larga scala mediante il sistema \textbf{ORIENTA+}, un framework basato su \textit{Large Language Models} che ha analizzato circa 2\,000 PTOF delle scuole secondarie di I e II grado. Il sistema integra due livelli: un'\textbf{analisi strutturale}, volta a verificare la compliance rispetto al D.M.~328/2022, e un'\textbf{analisi semantica}, che valuta il contenuto su sei dimensioni, ciascuna misurata su scala 1--7: (1)~Strutturale (compliance normativa), (2)~Finalit\`a dell'orientamento, (3)~Obiettivi di incidenza, (4)~Governance e organizzazione, (5)~Didattica orientativa, (6)~Opportunit\`a formative. L'\textbf{Indice sintetico IIPO} (Indice Integrato per la Programmazione dell'Orientamento) \`e calcolato come media delle sei dimensioni. I PTOF sono stati inoltre sottoposti a \textbf{clustering in 5 profili omogenei} per grado scolastico.
+
+Il campione comprende 693 PTOF della \textbf{secondaria di II grado}, provenienti da 100 province e 18 regioni su 20, con un IIPO medio di \textbf{3,48 / 7}, e 246 PTOF della \textbf{secondaria di I grado}, provenienti da 84 province e 18 regioni su 20, con un IIPO medio di \textbf{3,44 / 7}.
+
+\begin{table}[h]
+\centering
+\caption{Punteggio medio per dimensione (scala 1--7)}
+\label{tab:ptof_dimensioni}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Dimensione} & \textbf{II Grado} & \textbf{I Grado} \\
+\midrule
+Strutturale (compliance) & 2,62 & 2,39 \\
+Finalit\`a orientamento & 3,68 & 3,51 \\
+Obiettivi di incidenza & 3,21 & 3,10 \\
+Governance e organizzazione & 3,66 & 3,61 \\
+Didattica orientativa & 3,65 & 3,62 \\
+Opportunit\`a formative & 3,18 & 3,07 \\
+\midrule
+\textbf{IIPO (media)} & \textbf{3,48} & \textbf{3,44} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+I dati evidenziano alcuni pattern ricorrenti. Tra i \textbf{punti di forza}, la didattica orientativa e la governance ($>$3,6) mostrano un radicamento nelle pratiche scolastiche, indicando che le scuole hanno avviato processi di integrazione dell'orientamento nelle attivit\`a ordinarie. Sul versante delle \textbf{criticit\`a}, la compliance normativa ($\sim$2,5) risulta ancora in fase iniziale, cos\`\i{} come il contrasto ai fenomeni NEET (2,0--2,4). Alcune \textbf{aree richiedono consolidamento}: il monitoraggio ($\sim$2,8--3,1) e le opportunit\`a formative ($\sim$3,1) mostrano margini di sviluppo significativi. Una \textbf{nota positiva} \`e rappresentata dall'alleanza con le famiglie, che raggiunge il valore di 4,05 nel I grado, segnalando una collaborazione attiva con il territorio.
+
+\paragraph{Profili cluster.}
+L'analisi di clustering ha individuato cinque profili per ciascun grado, sintetizzati nella Tabella~\ref{tab:cluster}.
+
+\begin{table}[h]
+\centering
+\caption{Profili cluster dei PTOF -- Secondaria di I e II grado}
+\label{tab:cluster}
+\small
+\begin{tabularx}{\textwidth}{clcclc}
+\toprule
+\textbf{Cl.} & \textbf{Profilo II Grado} & \textbf{N} & & \textbf{Profilo I Grado} & \textbf{N} \\
+\midrule
+0 & Integrato e Didattico ($\sim$4/7) & 112 & & Integrato e Curricolare & 67 \\
+1 & Relazionale / Accoglienza & 77 & & Benessere / Accoglienza & 21 \\
+2 & PCTO-Centrico Dichiarativo & 25 & & Dichiarativo Formale (2/7) & 12 \\
+3 & Frammentato ($\sim$2--3/7) & 50 & & Generalista Non Strutturato & 19 \\
+4 & \textbf{Progettualit\`a Diffusa (60\%)} & 407 & & \textbf{Progettuale Frammentato (51\%)} & 125 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+In entrambi i gradi il cluster pi\`u numeroso (Cl.~4) \`e caratterizzato da numerosi progetti ma senza cornice unitaria: nel II grado le STEM sono dichiarate nel 98\% dei casi, ma il laboratorio reale \`e presente solo nel 16\%, evidenziando una logica ``a progetto'' piuttosto che curricolare.
+
+\paragraph{Aree di sviluppo.}
+L'analisi AI dei PTOF ha messo in evidenza diverse aree di sviluppo. La \textbf{sezione autonoma} dedicata all'orientamento \`e presente solo in una minoranza di documenti. Quanto alle \textbf{figure del tutor e dell'orientatore}, i ruoli sono previsti ma la formazione specifica risulta ancora poco documentata nei piani. Il \textbf{monitoraggio} \`e prevalentemente focalizzato su indicatori scolastici tradizionali e l'efficacia orientativa \`e poco rilevata. Gli \textbf{stereotipi di genere} nelle scelte formative rappresentano un tema con ampio spazio di sviluppo. Infine, l'\textbf{orientamento} tende a configurarsi come evento (open day, stage) pi\`u che come processo curricolare continuo.
+
+In sintesi, il sistema \`e in \textbf{transizione}: consapevole delle nuove istanze normative e in cammino verso un modello che integri l'orientamento come dimensione permanente del curricolo.
+
+
+\subsection{Unit\`a di Urbino}
+
+L'Unit\`a di Urbino ha focalizzato la propria azione sull'infanzia e sulla primaria, ordini tradizionalmente meno coinvolti nelle politiche di orientamento, con il progetto \textit{``Orientare le competenze non cognitive nelle scuole dell'infanzia e primarie delle province di Pesaro-Urbino e Ancona''}.
+
+\subsubsection{Fondamento teorico}
+
+Il lavoro si fonda sulla convergenza fra \textit{non-cognitive skills} e intelligenza emotiva di tratto (cfr.\ Sezione~\ref{sec:quadro_teorico}) nella prospettiva di un orientamento precoce e formativo. Tali competenze non sono distinte in modo netto da quelle cognitive, ma risultano integrative e intrecciate ad esse (Gardner), rendendo necessario un orientamento che valorizzi le dimensioni emotive e relazionali accanto a quelle attitudinali.
+
+\subsubsection{Strumenti: il questionario}
+
+\`E stato costruito un \textbf{questionario \textit{ad hoc}} indirizzato alle figure formalmente incaricate dell'orientamento e della continuit\`a, prendendo le mosse dallo strumento redatto dall'Unit\`a Centrale Nazionale e adattando gli item alle specificit\`a organizzative e metodologiche dell'infanzia e della primaria. Lo strumento si compone di due parti. La \textbf{parte comune} (5 sezioni, 40 item) raccoglie dati ascrittivi e profilo professionale, analisi del PTOF e dei moduli orientativi, descrizione delle attivit\`a e formazione, strumenti e metodologie didattiche, rapporto con famiglie e territorio. La \textbf{parte specifica Urbino} (3 aree) indaga le prassi di accoglienza e continuit\`a, l'orientamento formativo e la consapevolezza di s\'e, e le competenze non cognitive (\textit{non-cognitive skills}).
+
+La validazione di contenuto \`e stata condotta tramite \textbf{focus group} con docenti del territorio urbinate e anconetano, assicurando univocit\`a semantica e coerenza rispetto agli obiettivi di ricerca. Sono stati formulati due questionari distinti -- uno per l'infanzia e uno per la primaria -- che INVALSI ha poi diffuso su tutto il territorio nazionale.
+
+\subsubsection{Fasi della ricerca e risultati}
+
+La ricerca ha coinvolto scuole dell'infanzia e primarie selezionate nel territorio pesarese e anconetano, con il coinvolgimento di diversi istituti comprensivi: I.C.\ Binotti di Pergola (PU), I.C.\ Mercantini di Fossombrone (PU) e I.C.\ Bartolo da Sassoferrato (AN).
+
+\paragraph{Scuola dell'infanzia (n\,=\,31).} Il campione ha coinvolto 31 alunni dell'I.C.\ Binotti di Pergola, in 3 sezioni del plesso Scuola intercomunale Serra Sant'Abbondio-Frontone. Dopo la somministrazione del monitoraggio iniziale e l'attuazione del percorso formativo (sezioni A e B), i risultati finali evidenziano \textbf{progressi significativi} in tutte e cinque le aree monitorate:
+
+\begin{table}[h]
+\centering
+\caption{Esiti finali del monitoraggio -- Scuola dell'infanzia (n\,=\,31)}
+\label{tab:urbino_infanzia}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Area} & \textbf{Molto} & \textbf{Abbastanza} & \textbf{Poco} & \textbf{Niente} \\
+\midrule
+Autostima & 45\% & 42\% & 10\% & 3\% \\
+Fiducia in s\'e e nelle proprie capacit\`a & 42\% & 42\% & 13\% & 3\% \\
+Valorizzazione dei talenti personali & 42\% & 42\% & 13\% & 3\% \\
+Collaborazione e cooperazione & 45\% & 39\% & 13\% & 3\% \\
+Prosocialit\`a & 45\% & 39\% & 13\% & 3\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+In tutte le aree, la somma ``Molto + Abbastanza'' si attesta all'\textbf{85\%}, con ``Poco + Niente'' al 15\%, quota residuale. L'andamento \`e omogeneo e positivo, con miglioramenti significativi rispetto agli esiti iniziali: i bambini mostrano una maggiore percezione di s\'e, una fiducia pi\`u stabile e diffusa, una migliore capacit\`a di riconoscere i propri punti di forza, e comportamenti collaborativi consolidati.
+
+\paragraph{Scuola primaria (n\,=\,62).} Il campione ha coinvolto 62 alunni dei seguenti istituti: I.C.\ Mercantini di Fossombrone (classi 2\textsuperscript{a}B, 13 alunni; 2\textsuperscript{a}C, 20 alunni), I.C.\ Binotti di Pergola (pluriclasse 1--2, Fratterosa, 9 alunni), I.C.\ Bartolo da Sassoferrato (classi 1\textsuperscript{a}B, 10 alunni; 2\textsuperscript{a}B, 10 alunni, primaria Brillarelli). Le attivit\`a hanno compreso indagine di gradimento, focus group, progettazione e valutazione, formazione docenti e attuazione del progetto. I risultati quantitativi del monitoraggio nella scuola primaria sono in fase di elaborazione e saranno presentati nel rapporto finale.
+
+\paragraph{Questionario scuola dell'infanzia (n\,=\,63 professionisti).} L'indagine ha coinvolto 63 professionisti della scuola dell'infanzia (81\% donne, 19\% uomini), tutti con ruolo di funzione strumentale per l'orientamento e la continuit\`a, prevalentemente in istituti comprensivi (90,5\%). I risultati delineano un quadro articolato. La sezione dedicata all'orientamento nel PTOF \`e giudicata completa dal 54\% dei rispondenti e soddisfacente dal 34,9\%, mentre la rispondenza alle Indicazioni Nazionali risulta positiva (61,9\% ``molto'', 34,9\% ``abbastanza''). Sul fronte della formazione, il 100\% dei docenti ha approfondito tematiche di digitalizzazione e metodologie innovative e l'86\% si \`e occupato di disagio e abbandono. Emerge tuttavia una rilevante \textbf{mancanza di risorse}: il 94,7\% lamenta carenza di materiali e l'89,5\% evidenzia mancanza di formazione specifica sugli strumenti. Solo il 47,6\% delle scuole effettua azioni di monitoraggio sull'attuazione e sull'impatto delle attivit\`a orientative. Le competenze non cognitive sono considerate fondamentali: il 100\% ritiene il \textit{problem solving} la pi\`u importante, seguita da autonomia e motivazione (92,7\%).
+
+\subsubsection{Sintesi interpretativa}
+
+Le evidenze confermano che percorsi intenzionali centrati su \textit{non-cognitive skills} e intelligenza emotiva di tratto, veicolati tramite metodologie espressive e cooperative, sostengono \textbf{miglioramenti misurabili} gi\`a nella scuola dell'infanzia, con continuit\`a nella primaria. Si tratta di un volano cruciale per la prevenzione della dispersione e la costruzione di climi di classe inclusivi. L'approccio dell'Unit\`a di Urbino \`e pionieristico in quanto applica l'orientamento formativo a ordini di scuola tradizionalmente esclusi da tali politiche.
+
+
+\subsection{Unit\`a di Trieste}
+
+L'Unit\`a di Trieste ha elaborato un modello teorico-operativo incentrato sul costrutto di \textbf{``S\`e Possibile''} (o ``s\'e futuro'') per sostenere le scelte scolastiche e professionali degli studenti vulnerabili, con particolare attenzione agli studenti con \textbf{Bisogni Educativi Speciali (BES)} e ai percorsi professionalizzanti, nella fascia d'et\`a 14--19 anni.
+
+\subsubsection{Attivit\`a principali}
+
+L'attivit\`a dell'unit\`a si \`e sviluppata a partire da un solido \textbf{partenariato istituzionale} con il Centro Regionale per l'Orientamento del Friuli Venezia Giulia e con la rete delle scuole locali. Il cuore del contributo \`e rappresentato dal \textbf{modello ``S\`e Possibile''}, un percorso laboratoriale con studenti BES fondato sulla costruzione di rappresentazioni positive e realistiche del s\'e futuro, capaci di sostenere la motivazione e la progettualit\`a nelle transizioni scolastiche e professionali. L'unit\`a ha inoltre contribuito alla co-costruzione del \textbf{questionario INVALSI}, elaborando la sezione dedicata all'inclusione con items specifici per la rilevazione delle concezioni dei docenti sui rischi e le risorse percepite a scuola. La \textbf{sperimentazione didattica} con docenti afferenti al progetto ha consentito l'analisi dei dati dei questionari con focus specifico sugli studenti a rischio dispersione. Infine, \`e stato co-progettato un \textbf{modello di orientamento professionale inclusivo}, in collaborazione con educatori e operatori del territorio.
+
+\subsubsection{Evidenze principali}
+
+L'approccio specifico per studenti BES si \`e dimostrato integrabile nel modello RiFormOrienta, contribuendo alla \textbf{dimensione inclusiva} dell'orientamento formativo. La collaborazione consolidata con la rete scolastica regionale ha consentito di sperimentare il modello in contesti reali, con implicazioni rilevanti per la formazione in servizio dei docenti, la progettazione didattica orientativa e il raccordo tra scuola e territorio. La priorit\`a individuata \`e l'estensione del modello ``S\`e Possibile'' ad altri contesti regionali.
+
+
+\subsection{Unit\`a di Messina}
+
+L'Unit\`a di Messina ha contribuito con un modello di \textbf{orientamento educativo} fondato sull'\textbf{Analisi Transazionale} (AT) e sul ``modello del copione'', con focus sulla scuola secondaria di primo grado.
+
+\subsubsection{Fondamento teorico}
+
+L'opzione teorica dell'Analisi Transazionale consente di tematizzare le \textbf{ingiunzioni interiorizzate}, i permessi negati, i confini psicologici e le dinamiche simbiotiche che possono cronicizzare forme di ``agire adattato'' e ostacolare il progetto autentico di s\'e. Il modello pone attenzione alle dinamiche intrapsichiche che vincolano il progetto di vita dello studente, con l'obiettivo di \textbf{sciogliere blocchi} e \textbf{riattivare permessi esistenziali} necessari per una progettualit\`a autentica.
+
+\subsubsection{Attivit\`a principali}
+
+L'unit\`a ha proceduto alla \textbf{progettazione e validazione} del modello di orientamento educativo centrato sullo sviluppo del S\`e, in collaborazione con docenti ed educatori. Lo strumento principale \`e la \textbf{scheda di osservazione dell'``agire adattato''}, concepita per rilevare le dinamiche di adattamento degli studenti e somministrata a 18 istituizioni scolastiche. Complessivamente sono state raccolte \textbf{91 schede}: 80 dalla secondaria di I grado e 11 dalla secondaria di II grado. Sono stati inoltre analizzati \textbf{5 casi studio}, secondo tipologie di studio di caso clinico-esemplificative e storico-culturali, con focus su autolimitazioni interiorizzate, iperprotezione, direttivit\`a docente, controllo invasivo e assenza di confini relazionali. Le scuole coinvolte sono distribuite prevalentemente in Sicilia e inoltre in Toscana, Abruzzo, Calabria e Lombardia (Tabella~\ref{tab:messina_scuole}).
+
+\begin{table}[h]
+\centering
+\caption{Scuole coinvolte dall'Unit\`a di Messina}
+\label{tab:messina_scuole}
+\small
+\begin{tabular}{llc}
+\toprule
+\textbf{Citt\`a} & \textbf{Provincia} & \textbf{N. scuole} \\
+\midrule
+Caltanissetta & CL & 1 \\
+Enna & EN & 2 \\
+Gela & CL & 1 \\
+Gioia Tauro & RC & 1 \\
+Massarosa & LU & 1 \\
+Messina & ME & 4 \\
+Misterbianco & CT & 1 \\
+Ragusa & RG & 1 \\
+Scoglitti & RG & 1 \\
+Sesto San Giovanni & MI & 1 \\
+Vasto & CH & 1 \\
+Vittoria & RG & 3 \\
+\midrule
+\textbf{Totale} & & \textbf{18} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Validazione della scheda sull'agire adattato}
+
+\begin{table}[h]
+\centering
+\caption{Distribuzione delle schede raccolte per grado e classe}
+\label{tab:messina_schede}
+\begin{tabular}{llc}
+\toprule
+\textbf{Grado} & \textbf{Classe} & \textbf{Percentuale} \\
+\midrule
+Secondaria I grado (n\,=\,80) & Prime & 52,5\% \\
+ & Seconde & 41,3\% \\
+ & Terze & 6,3\% \\
+\midrule
+Secondaria II grado (n\,=\,11) & Seconde & 45,5\% \\
+ & Quinte & 54,5\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Nella secondaria di I grado, le schede provengono da: I.C.\ Traina (9), I.C.\ Berlinguer (8), I.C.\ Rodari (12), I.C.\ Sciascia (51). Nella secondaria di II grado, le 11 schede provengono da un Istituto alberghiero di Gela. Il processo di \textbf{validazione psicometrica} \`e in corso; la fase ha comunque confermato la praticabilit\`a operativa della scheda e ha attivato collaborazioni istituzionali significative.
+
+\subsubsection{Casi studio}
+
+\begin{table}[h]
+\centering
+\caption{Sintesi dei casi studio (Unit\`a di Messina)}
+\label{tab:messina_casi}
+\small
+\begin{tabularx}{\textwidth}{clX}
+\toprule
+\textbf{N.} & \textbf{Caso} & \textbf{Focus principale} \\
+\midrule
+1 & Michele & Autolimitazioni interiorizzate; blocco del progetto di vita \\
+2 & Davide & Iperprotezione; imposizione della scelta scolastica \\
+3 & Caso scolastico & Direttivit\`a docente; conflitto in classe \\
+4 & Ragazzo con TS & Controllo invasivo; confini relazionali \\
+5 & Hildegard & Esiti estremi del controllo genitoriale \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsubsection{Disseminazione}
+
+Per le pubblicazioni e i prodotti di disseminazione dell'Unit\`a si rimanda alla Sezione~\ref{sec:disseminazione}.
+
+
+\subsection{Unit\`a di Bari}
+\label{sec:bari}
+
+L'Unit\`a di Bari ha sviluppato l'infrastruttura digitale del progetto, progettando e realizzando il \textbf{portale dell'orientamento} con funzione di community online nazionale.
+
+\subsubsection{Attivit\`a principali}
+
+Il portale, accessibile all'indirizzo \texttt{prinorientamento.forpsicom-uniba.it}, \`e stato sviluppato attraverso quattro fasi successive: la \textbf{progettazione dei contenuti}, con la definizione dell'architettura informativa e dei flussi di interazione; la \textbf{predisposizione di materiali informativi} per tutti i gradi scolastici; la \textbf{progettazione dell'ambiente per la ricerca-azione}, con spazi dedicati alle scuole impegnate nella sperimentazione; e infine la \textbf{sistematizzazione dei contenuti formativi} in una sezione MOOC orientata alla formazione permanente.
+
+Il portale svolge una \textbf{triplice funzione}: opera come \textbf{vetrina pubblica} del progetto, rendendo accessibili obiettivi, azioni, risultati e pubblicazioni; costituisce un \textbf{luogo di scambio} e confronto di buone prassi tra i partner, con apertura progressiva alla rete nazionale delle scuole; e si configura come \textbf{ambiente di apprendimento online}, destinato alla formazione sia dei partner diretti sia dell'intera comunit\`a professionale attraverso OER (\textit{Open Educational Resources}) e MOOC.
+
+\subsubsection{Evidenze principali}
+
+La piattaforma \`e operativa e contiene materiali formativi e contenuti didattici predisposti per tutti gli ordini. Le OER sono in fase avanzata di sviluppo. Il portale, oltre a favorire la documentazione dei percorsi di ricerca-azione, rappresenta un volano di sostenibilit\`a delle innovazioni, consentendo scalabilit\`a, standardizzazione leggera di strumenti e diffusione di pratiche \textit{evidence-informed}. La priorit\`a individuata \`e l'estensione della community oltre i partner di progetto a tutte le scuole del territorio nazionale.
+
+
+% ===================================================================
+%  SEZIONE 5 -- DISSEMINAZIONE (ex Sezione 6)
+% ===================================================================
+\section{Disseminazione}
+\label{sec:disseminazione}
+
+\subsection{Pubblicazioni}
+
+Le attivit\`a di disseminazione dei risultati del PRIN 2022 comprendono diverse tipologie di prodotti. L'Unit\`a di Messina ha curato un \textbf{volume in gold open access} (editore Studium, febbraio 2026) dedicato al modello di orientamento fondato sull'Analisi Transazionale. Due articoli sono stati pubblicati sulla rivista \textbf{Nuova Secondaria Ricerca} (ottobre e dicembre 2025), accompagnati da contributi in atti di convegni nazionali delle societ\`a scientifiche pedagogiche. L'Unit\`a di Roma Tre ha realizzato una \textbf{systematic review} sull'orientamento formativo e ha progettato \textbf{CounselorBot}, un chatbot per l'orientamento. L'Unit\`a di Bari ha messo a disposizione il \textbf{portale e la community online} (\texttt{prinorientamento.forpsicom-uniba.it}), insieme a materiali formativi, protocolli e documenti di buone pratiche accessibili in rete.
+
+\subsection{Convegni e workshop}
+
+Il percorso di disseminazione si \`e articolato attraverso una serie di eventi inter-unit\`a che hanno scandito le tappe del progetto.
+
+Il primo appuntamento \`e stato il \textbf{Convegno PRIN di Bari} (4 luglio 2025), organizzato dall'Universit\`a di Bari Aldo Moro, in cui sono stati presentati il portale orientamento e la community online e condivisi i primi risultati delle attivit\`a di ricerca-formazione, con la partecipazione di tutte le unit\`a di ricerca. \`E seguito il \textbf{Workshop PRIN di Trieste} (29 luglio 2025), organizzato dall'Universit\`a di Trieste con focus su pratiche orientative per studenti BES e confronto sullo stato di avanzamento del progetto.
+
+Nel settembre 2025, il progetto \`e stato presentato al \textbf{IX Congresso della Societ\`a Italiana di Orientamento (SIO)} a Parma (12--13 settembre), dal titolo ``Orientamento inclusivo e sostenibile'', con contributi su orientamento formativo e inclusivo. Il \textbf{Convegno PRIN di Messina} (10 ottobre 2025) ha offerto la cornice per la presentazione del modello fondato sull'Analisi Transazionale, dei 5 casi studio e della scheda ``agire adattato''. Il \textbf{Convegno PRIN di Urbino} (27 novembre 2025) \`e stato dedicato alla sperimentazione dell'orientamento formativo nell'infanzia e nella primaria, con i risultati e le prospettive sulle \textit{non-cognitive skills}.
+
+Il ciclo si \`e concluso con il \textbf{Convegno finale PRIN di Roma} (26 febbraio 2026), ospitato dall'Universit\`a Roma Tre (Aula Volpi, Dipartimento di Scienze della Formazione). La keynote lecture \`e stata tenuta da \textbf{Neil Harrison} (Exeter University, UK), introdotto da Caterina Bembich (Universit\`a di Trieste). Una tavola rotonda dal titolo ``Orientamento: testimonianze e prospettive future'' ha riunito F.~Batini, A.~Cunti, G.~De Marchis, G.~Domenici, A.~Grimaldi, I.~Stanzione e G.~Zanniello, a coronamento della presentazione degli esiti finali di tutte le unit\`a e della discussione conclusiva.
+
+
+% ===================================================================
+%  SEZIONE 6 -- DISCUSSIONE
+% ===================================================================
+\section{Discussione}
+
+I risultati del PRIN 2022 confermano la natura dell'orientamento come \textbf{processo trasformativo} e responsabilit\`a diffusa, che attraversa l'intero percorso scolastico sostenendo la costruzione del S\`e nelle sue dimensioni cognitiva, emotiva, relazionale e sociale.
+
+\subsection{Risultati integrati dell'indagine nazionale}
+
+\subsubsection{Attuazione e coerenza sistemica}
+
+Le sezioni dei PTOF dedicate all'orientamento risultano in larga parte strutturate e allineate alle Indicazioni Nazionali. La corrispondenza con le pratiche d'aula \`e mediamente elevata, con disomogeneit\`a territoriali e di grado. L'organizzazione degli interventi \`e diffusa, ma si riscontra una \textbf{tendenza alla concentrazione dei moduli sulla secondaria}, a detrimento di una politica di orientamento precoce -- aspetto che assume particolare rilievo alla luce dei risultati ottenuti dall'Unit\`a di Urbino con l'infanzia e la primaria.
+
+\subsubsection{Modelli, strumenti e formazione}
+
+Prevale la matrice \textbf{informativa}, affiancata da un'espansione delle pratiche formative e attive (laboratori, uscite, peer education). Gli strumenti di autovalutazione sono ampiamente diffusi, mentre risultano meno utilizzate le risorse di \textbf{auto-narrazione} e i test attitudinali. La formazione docenti \`e intensa sul digitale e sulle metodologie innovative, ma permangono \textbf{fabbisogni rilevanti} su strumenti condivisi e protocolli di valutazione.
+
+\subsubsection{Reti, alleanze educative e monitoraggio}
+
+Le collaborazioni scuola--territorio sono vivaci: l'87,3\% delle scuole dichiara di svolgere attivit\`a di orientamento che coinvolgono associazioni, famiglie ed enti locali. Le attivit\`a pi\`u diffuse includono incontri con esperti (100\%), partecipazione a eventi esterni (88\%) e progetti di educazione ambientale (86\%).
+
+Tuttavia, il \textbf{monitoraggio sistematico dell'impatto risulta carente}: meno della met\`a delle scuole misura attuazione ed efficacia, con prevalenza di azioni informative su pratiche trasformative.
+
+\subsubsection{Dimensione inclusiva e studenti vulnerabili}
+
+Il lavoro dell'Unit\`a di Trieste evidenzia l'importanza del ``S\`e Possibile'' per studenti con BES e per contesti professionalizzanti, con implicazioni per la formazione docenti e la progettazione curricolare. Il contributo dell'Unit\`a di Messina mette a fuoco le dinamiche intrapsichiche che vincolano il progetto di vita (ingiunzioni, permessi negati, confini), con ricadute sugli strumenti di osservazione e sugli interventi di sblocco dei percorsi adattivi cristallizzati.
+
+\subsection{Confronto tra fonti: convergenze e divergenze}
+
+La \textbf{triangolazione} dei dati provenienti dalle tre fonti principali -- questionari INVALSI, analisi AI dei PTOF e focus group -- ha evidenziato sia convergenze sia tensioni significative. I \textbf{questionari} (cfr.\ Sezione~\ref{sec:indagine}) segnalano una possibile autoselezione di scuole particolarmente sensibili al tema; da essi l'orientamento emerge come prevalentemente informativo. L'analisi AI dei \textbf{PTOF} rivela che la presenza dell'orientamento nei documenti programmatori \`e diffusa, ma spesso generica e dichiarativa piuttosto che operativa. I \textbf{focus group} confermano lo scollamento tra il dichiarato nei documenti e il praticato nelle aule, con docenti che percepiscono l'orientamento come carico burocratico pi\`u che come opportunit\`a formativa. La \textbf{convergenza principale} tra le tre fonti \`e netta: l'orientamento formativo \`e citato e riconosciuto come obiettivo, ma \`e raramente tradotto in pratiche curricolari sistematiche.
+
+\begin{table}[h]
+\centering
+\caption{Sintesi comparativa tra unit\`a}
+\label{tab:confronto_unita}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+\textbf{Unit\`a} & \textbf{Contributo distintivo} \\
+\midrule
+Roma Tre & Modello RiFormOrienta sperimentato e validabile; coordinamento nazionale; analisi PTOF con doppia lettura (umana e AI) \\
+Urbino & Non-cognitive skills dall'infanzia; 85\% dei bambini nella fascia ``Molto+Abbastanza'' \\
+Trieste & Dimensione inclusiva BES; modello ``S\`e Possibile'' \\
+Messina & Analisi Transazionale per lo sviluppo del S\`e; scheda ``agire adattato'' \\
+Bari & Infrastruttura digitale: portale, community, MOOC/OER \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Il \textbf{filo conduttore} che accomuna tutti i contributi \`e la necessit\`a di passare da un orientamento di tipo informativo a un \textbf{orientamento formativo integrato nel curricolo}, capace di valorizzare le dimensioni non cognitive, emotive e relazionali della costruzione del S\`e lungo l'intero arco della scolarit\`a.
+
+\subsection{Considerazioni di sintesi}
+
+I dati raccolti, integrati e triangolati tra le diverse fonti, suggeriscono una serie di considerazioni articolate.
+
+In primo luogo, appare necessario \textbf{anticipare l'orientamento nei primi gradi} (infanzia e primaria) per incidere su autostima, motivazione e autoregolazione. I risultati dell'Unit\`a di Urbino, con l'85\% dei bambini nella fascia ``Molto+Abbastanza'' in tutte le aree monitorate, dimostrano che percorsi intenzionali sono efficaci gi\`a nella scuola dell'infanzia.
+
+In secondo luogo, le \textbf{non-cognitive skills} si confermano non accessorie ma condizione per l'apprendimento e la cittadinanza, dimensioni irrinunciabili di un orientamento autenticamente formativo.
+
+Sul piano della \textbf{formazione docenti}, i risultati indicano la necessit\`a di integrare modelli formativi e strumenti riflessivi -- portfolio, auto-narrazione, ePortfolio --, riducendo la dipendenza da pratiche meramente informative. I focus group confermano che molti docenti non hanno ancora interiorizzato la didattica orientativa come parte integrante del proprio ruolo professionale.
+
+I \textbf{contesti vulnerabili} richiedono approcci mirati: il ``S\`e Possibile'' elaborato dall'Unit\`a di Trieste per studenti con BES e l'Analisi Transazionale dell'Unit\`a di Messina, finalizzata a sciogliere blocchi e riattivare permessi esistenziali, rappresentano contributi significativi alla dimensione inclusiva dell'orientamento.
+
+Un \textbf{monitoraggio sistematico} basato su rubriche, indicatori e strumenti psicometrici risulta decisivo per valutare impatto e scalabilit\`a degli interventi, e rappresenta una delle criticit\`a pi\`u rilevanti del sistema.
+
+Infine, l'\textbf{ecosistema digitale} sviluppato dall'Unit\`a di Bari (portale, OER, MOOC) si conferma un abilitatore robusto della comunit\`a professionale, favorevole alla diffusione e all'istituzionalizzazione delle innovazioni.
+
+Il modello RiFormOrienta offre un impianto coerente con questi esiti: centralit\`a della narrazione, dell'empowerment e delle non-cognitive skills; potenziamento di ePortfolio e rubriche; moduli interdisciplinari (sostenibilit\`a) con validazione pilota. La combinazione tra indagine conoscitiva e ricerca-formazione consente di passare dalla fotografia dello stato di fatto alla proposta di un modello operativo scalabile.
+
+
+% ===================================================================
+%  SEZIONE 7 -- LIMITI DELLO STUDIO
+% ===================================================================
+\section{Limiti dello studio}
+
+Tra i limiti della ricerca occorre segnalare, in primo luogo, il \textbf{tasso di risposta} intorno al 25\%, con possibili effetti di \textbf{autoselezione}: le scuole rispondenti potrebbero essere quelle gi\`a pi\`u sensibili al tema dell'orientamento, con conseguente sovrastima delle pratiche in atto. In secondo luogo, la \textbf{validazione psicometrica} \`e ancora in corso per alcune componenti strumentali, in particolare per la scheda sull'agire adattato dell'Unit\`a di Messina, il che impone cautela nell'inferenza sui risultati quantitativi. Si aggiunge l'\textbf{eterogeneit\`a} degli istituti e la \textbf{difformit\`a} nelle prassi di documentazione, che possono aver influenzato l'analisi dei PTOF, nonostante l'impiego di procedure standardizzate di analisi AI. Il \textbf{focus group} condotto dall'Unit\`a di Roma Tre ha coinvolto soltanto tre docenti di una singola regione, il che ne limita la portata a una funzione esplorativa. Infine, la \textbf{mancanza di misure longitudinali} su larga scala rappresenta un vincolo significativo: non sono disponibili, ad oggi, dati sugli \textit{outcomes} a medio-lungo termine (scelte post-diploma, inserimento lavorativo, benessere a distanza) che consentirebbero di valutare l'impatto duraturo degli interventi.
+
+
+% ===================================================================
+%  SEZIONE 8 -- RACCOMANDAZIONI
+% ===================================================================
+\section{Raccomandazioni operative e di policy}
+
+Sulla base dei risultati emersi e della discussione condotta, si formulano le seguenti raccomandazioni.
+
+\`E innanzitutto necessario \textbf{anticipare e consolidare} l'orientamento nell'infanzia e nella primaria, con curricoli che esplicitino \textit{non-cognitive skills} e intelligenza emotiva come traguardi di sviluppo; i risultati dell'Unit\`a di Urbino forniscono una base empirica per questa estensione. Parallelamente, occorre \textbf{istituzionalizzare} pratiche riflessive -- auto-narrazione, portfolio, ePortfolio -- e valutazione autentica (rubriche) in tutti gli ordini, con formazione dedicata ai docenti; il modello RiFormOrienta offre un framework operativo gi\`a sperimentato.
+
+Sul piano strumentale, \`e opportuno \textbf{potenziare la formazione in servizio} su strumenti \textit{evidence-based}: questionari di autovalutazione, strumenti di monitoraggio dell'agire adattato, protocolli per la presa in carico di studenti con BES e per le transizioni. \`E inoltre prioritario \textbf{rendere strutturale il monitoraggio} di attuazione e impatto, con indicatori, standard minimi, audit leggeri e reporting annuale, anche tramite l'infrastruttura digitale del progetto.
+
+Sul versante delle relazioni con il territorio, si raccomanda di \textbf{valorizzare le alleanze educative} con famiglie, enti locali, terzo settore e mondo del lavoro, attraverso patti educativi di comunit\`a orientati a competenze per la sostenibilit\`a e la transizione scuola--lavoro. Sul piano tecnologico, \`e fondamentale \textbf{espandere la community online} e i MOOC come infrastruttura nazionale di formazione permanente e scambio di pratiche, garantendone la sostenibilit\`a oltre la durata del progetto. Infine, occorre \textbf{sostenere azioni mirate per studenti vulnerabili} basate sul ``S\`e Possibile'', sull'Analisi Transazionale e sull'osservazione sistematica dei processi di adattamento, per prevenire disallineamenti nelle scelte e ``tradimenti del S\`e''.
+
+
+% ===================================================================
+%  SEZIONE 9 -- CONCLUSIONI
+% ===================================================================
+\section{Conclusioni}
+
+Il PRIN 2022 dimostra che l'orientamento, inteso in senso formativo, \`e una \textbf{leva di sistema} capace di integrare dimensioni cognitive e non cognitive, valorizzando la narrazione e l'empowerment come motori della costruzione di S\`e. La combinazione tra \textbf{indagine nazionale}, \textbf{sperimentazioni sul campo} (RiFormOrienta), \textbf{produzione di risorse} (moduli, rubriche, portfolio), \textbf{sviluppo di strumenti} (schede operative, questionari adattati a infanzia e primaria) e \textbf{infrastruttura digitale} (community, MOOC) compone un ecosistema coerente per l'innovazione educativa.
+
+Le evidenze empiriche -- dai miglioramenti nelle \textit{non-cognitive skills} nella scuola dell'infanzia ai riscontri sulle pratiche nelle secondarie -- sostengono la \textbf{scalabilit\`a} del modello RiFormOrienta e avvalorano politiche che riconoscano nell'orientamento un processo continuo, inclusivo e trasformativo gi\`a dai primi anni. L'indagine nazionale su campione INVALSI, gli approcci verticali validati dall'infanzia (Urbino) ai BES (Trieste), dalla secondaria di I grado (Messina) alla secondaria di II grado (Roma Tre), l'analisi AI di circa 2\,000 PTOF e l'infrastruttura digitale (portale, OER, MOOC) compongono un ecosistema coerente e pronto per la disseminazione.
+
+La \textbf{sfida futura} risiede nell'integrare l'orientamento formativo nel curricolo ordinario a tutti i gradi come prassi strutturale, consolidando il monitoraggio, rafforzando la formazione docente su metodologie \textit{evidence-based} e garantendo la sostenibilit\`a della community nazionale oltre la durata del progetto.
+
+
+\end{document}

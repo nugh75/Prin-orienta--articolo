@@ -31,7 +31,7 @@ L'output è un report narrativo + JSON strutturato per ogni scuola.
 
 ## Indice
 
-L'[[IIPO]] (Indice di Documentazione delle Pratiche di Orientamento) è la metrica sintetica che riassume i punteggi delle 6 dimensioni.
+L'[[IIPO]] (Indice Informativo delle Pratiche di Orientamento) è la metrica sintetica che riassume i punteggi delle 6 dimensioni.
 
 ## Licenza
 

@@ -1,5 +1,5 @@
 ---
-title: "IIPO — Indice di Documentazione delle Pratiche di Orientamento"
+title: "IIPO — Indice Informativo delle Pratiche di Orientamento"
 tags: [indice, metrica, valutazione, PTOF]
 created: 2026-05-13
 updated: 2026-05-13
