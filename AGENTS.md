@@ -1,8 +1,8 @@
-# LLM Wiki - Schema & Conventions
+# LLM Wiki — Schema & Conventions
 
 ## Architecture
 Three layers:
-- **raw/** — Immutable source documents (articles, papers, notes, assets). LLM reads, never modifies.
+- **raw/** — Immutable source documents. LLM reads, never modifies.
 - **wiki/** — LLM-generated markdown files. LLM owns this layer entirely.
 - **AGENTS.md** — This schema file. Co-evolved between human and LLM.
 
@@ -32,7 +32,6 @@ updated: YYYY-MM-DD
 sources: [source-file-name.md]
 ---
 ```
-
 Use `[[wikilinks]]` for cross-references between pages.
 
 ## Operations
@@ -55,23 +54,42 @@ Use `[[wikilinks]]` for cross-references between pages.
 ### Lint
 Periodically scan for: contradictions, stale claims, orphan pages, missing cross-references, gaps to fill via web search.
 
-## Index Format (`wiki/index.md`)
-```markdown
-# Wiki Index
+---
 
-## Concepts
-- [[Concept Name]] — One-line summary
+# Article Writing & Revision
 
-## Entities
-- [[Entity Name]] — One-line summary
+## Article Writing Workflow (Wiki-based)
 
-## Sources
-- [source-name](raw/articles/source-name.md) — Brief description
+Use the wiki paradigm to write an academic article:
+
+1. **Ingest sources** → place documents in `raw/`, have LLM compile them into `wiki/`
+2. **Draft article** → LLM writes bozza in `articles/article-v1-YYYY-MM-DD-HHMM.md` based on wiki content
+3. **Store in wiki** → summarise the article in `wiki/index.md` and log in `wiki/log.md`
+
+## Article Format
+Articles live in `articles/` following the convention:
+```
+articles/article-v<N>-YYYY-MM-DD-HHMM[-anonymous].md
 ```
 
-## Log Format (`wiki/log.md`)
-```markdown
-## [YYYY-MM-DD] ingest | Source Title
-- Summary: ...
-- Pages touched: [[Page1]], [[Page2]]
+## article-revision
+See `.claude/skills/article-revision/AGENTS.md` for the full review/revision workflow.
+
+## tone-of-voice
+See `.claude/skills/tone-of-voice/SKILL.md`. Apply this tone when writing,
+revising, or translating any text for publication.
+
+### When to use the revision skill
+When the user says: *"revise the article"*, *"apply reviewer X comments"*, *"revise paragraph 3"*, *"let's process the reviewer comments"*.
+
+### Project layout for revision
+```
+articles/                         # Article drafts
+bibliography/
+└── reference.bib                 # .bib file
+editorial-norms/
+└── norms.md                      # Journal norms
+revisions/                        # Revision plans and final sheets
+data/                             # Optional: sample data for stats
+.env                              # Config (EDITORIAL_LIMIT_CHARS, etc.)
 ```

@@ -1,4 +1,42 @@
-.DS_Store
-node_modules/
+# --- Python ---
 __pycache__/
-*.pyc
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+
+# --- Virtual environments ---
+.venv
+venv/
+.env
+
+# --- OS files ---
+.DS_Store
+Thumbs.db
+
+# --- Node.js ---
+node_modules/
+
+# --- Generated outputs ---
+*.docx
+*.pdf
+!raw/**/*.pdf
+*.odt
+
+# --- IDE / Editors ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# --- Project-specific ---
+# Script outputs and temporary files
+scripts/__pycache__/
+
+# Revision working files
+revisions/*.md
+!revisions/README.md
