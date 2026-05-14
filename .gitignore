@@ -40,3 +40,6 @@ scripts/__pycache__/
 # Revision working files
 revisions/*.md
 !revisions/README.md
+
+# --- External skill repos ---
+.claude/skills/tone-of-voice/

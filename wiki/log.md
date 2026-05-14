@@ -1,5 +1,42 @@
 # Action Log
 
+## [2026-05-14] Ingest | Documentazione aggiornata piattaforma ORIENTA+ (maggio 2026)
+
+Ingestita documentazione completa fornita dal progetto:
+- Creato `raw/articles/2026-0514-orienta-piattaforma-completa.md` — descrizione integrale: funzionamento, framework 6 dimensioni (dettaglio per sotto-indicatore), scala Likert 1-7 con descrittori, IIPO con note metodologiche, report narrativo, catalogo attività, strumenti di analisi (KPI, territoriale, dimensionale, analytics, ricerca impatto, gap analysis)
+- Aggiornato `wiki/entities/orienta.md` — aggiunta sezione output, strumenti analisi, wikilink a nuove pagine
+- Aggiornato `wiki/concepts/iipo.md` — aggiunte note metodologiche (sensibilità strumentale, standard di settore, effetto compensazione)
+- Aggiornato `wiki/concepts/framework-6-dimensioni.md` — espanse tutte e 6 le dimensioni con descrizione dettagliata dei sotto-indicatori
+- Creata `wiki/concepts/catalogo-attivita.md` — catalogo navigabile, categorie, estrazione Qwen3:32b, meta-report
+- Creata `wiki/concepts/strumenti-analisi-orienta.md` — dashboard, analytics, ricerca, gap analysis
+- Aggiornato `wiki/index.md` — nuovi link concept e fonte raw
+
+## [2026-05-14] Ingest | Report analisi qualitativa PTOF — De Nardo
+
+- Convertito `report analisi PTOF scuole secondarie 2026.docx` → `raw/articles/2026-0514-de-nardo-analisi-ptof.md`
+- Autrice: [[Maria Chiara De Nardo]], Unità Roma Tre, PRIN 2022
+- 16 PTOF di scuole secondarie di II grado analizzati qualitativamente (dettaglio per istituto)
+- Aggiunta voce `denardo2026` in `reference.bib` e in bibliografia articolo v4
+- Aggiunto §3.6 nell'articolo: validazione qualitativa (confronto AI-umano) + validazione tecnica (processo iterativo versionato)
+
+## [2026-05-14] Ingest | Relazione scientifica PRIN 2022
+
+- Convertito `relazione-prin.docs.docx` → `raw/articles/2026-0514-relazione-scientifica-prin.md`
+- PRIN 2022 «National survey on guidance in school» — 3 macro-azioni:
+  - **MA1**: Indagine nazionale su pratiche di orientamento (questionari + analisi PTOF)
+  - **MA2**: Modello RiFormOrienta (orientamento formativo)
+  - **MA3**: Portale e community professionale
+- 5 unità operative: Roma Tre (capofila, Margottini), Urbino, Trieste, Messina, Bari + INVALSI (campionamento)
+- Aggiunto contesto PRIN in articolo §1 (P5): ORIENTA+ contribuisce a MA1 e MA2
+
+## [2026-05-14] Revisione articolo: bump v3→v4 + P1-P3 rivisti
+
+- Bump obbligatorio: `article-v3-2026-05-14-0013.md` → `article-v4-2026-05-14-1116.md`
+- P1: aggiunti «riflessione sulle proprie aspirazioni» e connettivo «inoltre» per D.M. 328/2022
+- P2: riscritto interamente — fonte open data MIM (dati.istruzione.it/opendata), chiarito passaggio elenco scuole → download singoli PTOF, corretti refusi
+- P3: «È qui che si inserisce» → «In questo contesto si colloca»; «robustezza» → linguaggio descrittivo (analisi semantica, senza giudizi di valore)
+- Wiki allineata: `orienta.md` aggiornato con linguaggio descrittivo e terzo livello catalogazione
+
 ## [2026-05-13] Ingest | Piattaforma ORIENTA+ (Daniele Dragoni, Roma Tre)
 
 Ingeeriti articoli dalla piattaforma https://orienta.ai4educ.org/:
