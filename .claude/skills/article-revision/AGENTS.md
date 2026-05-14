@@ -15,6 +15,21 @@ Trigger phrases:
 - explicit invocation if the host tool supports it (Claude Code: `/article-revision`)
 - any request that mentions a Markdown article and reviewer/co-author feedback to apply
 
+### Slash Commands
+
+| Command | Action |
+|---|---|
+| `/article-revision` | Full revision workflow from reviewer feedback |
+| `/r-pp` | **Revisione Paragrafo per Paragrafo** — sequential walk with diagnostic questions per paragraph |
+| `/r-pp-a` | **Revisione Paragrafo per Paragrafo Approfondita** — deep five-layer diagnostic per paragraph |
+| `/r-pr-2` | **Revisione Due Peer Reviewer** — simulate two peer reviewers, synthesise feedback per section |
+| `/r-conn` | **Revisione Connettori** — analyse and polish logical connectors, transitions, and signposting |
+| `/r-global` | **Revisione Globale** — high-level, non-granular revision across seven structural lenses |
+| `/r-bump` | Bump article version (hand off to `workflow/60-bump-version.md`) |
+| `/r-sheet` | Generate final revision sheet (hand off to `workflow/70-final-sheet.md`) |
+
+See `SKILL.md` for the full description of each mode.
+
 If the user is doing something else (writing the article from scratch, generating new content, refactoring code), do **not** activate this workflow.
 
 ---
@@ -26,6 +41,7 @@ If the user is doing something else (writing the article from scratch, generatin
 3. **Always ask before creating.** Bootstrap, version bump, new files: every write step that creates something requires explicit confirmation. Idempotent re-checks of already-existing artifacts need no confirmation.
 4. **No silent behavior.** Whenever the skill takes a non-trivial action, output a one-line acknowledgement in chat.
 5. **Surgical edits.** Touch only what the current point requires. Do not clean up adjacent prose, formatting, or unrelated bibliography.
+6. **Mandatory bump at session start.** Every new revision session MUST start with a version bump (vN → vN+1) before any edits. The bump is enforced by `10-setup.md` step 5. Never skip it. The `AUTO_BUMP_THRESHOLD` handles additional mid-session bumps separately.
 
 ---
 
@@ -79,9 +95,13 @@ See `.env.example` for the complete template.
 | 2 | `workflow/10-setup.md` | After bootstrap; loads `.env`, norms, bibliography, active article, detects language |
 | 3 | `workflow/20-plan-revision.md` | When user provides reviewer feedback |
 | 4 | `workflow/30-iterate-points.md` | Core loop: propose, ask, apply (no commit) |
+| 4a | `workflow/31-paragraph-by-paragraph.md` | Triggered by `/r-pp` or `/r-pp-a`. Per-paragraph diagnostic walk. |
+| 4b | `workflow/32-peer-review-simulation.md` | Triggered by `/r-pr-2`. Dual reviewer simulation. |
+| 4c | `workflow/33-connector-revision.md` | Triggered by `/r-conn`. Connector and transition polish. |
+| 4d | `workflow/34-global-revision.md` | Triggered by `/r-global`. Seven-lens structural review. |
 | 5 | `workflow/40-bibliography-check.md` | When a citation is touched or a reviewer flags one |
 | 6 | `workflow/50-sample-description.md` | When methodology asks for sample stats from raw data |
-| 7 | `workflow/60-bump-version.md` | End of round, or after `AUTO_BUMP_THRESHOLD` accepted changes |
+| 7 | `workflow/60-bump-version.md` | Mandatory session-start bump + end of round, or after `AUTO_BUMP_THRESHOLD` accepted changes |
 | 8 | `workflow/70-final-sheet.md` | End of round |
 
 Each workflow file contains the full step-by-step instructions. **Read the relevant workflow file before acting.**
@@ -97,6 +117,11 @@ The user can pick one of three scopes:
 | **Fragment** | *"fix this sentence"*, *"adjust this quotation"*, *"replace X with Y"* | Smallest possible diff |
 | **Paragraph** (default for reviewer points) | *"revise this paragraph"*, *"section 3"* | One paragraph or numbered subsection |
 | **Whole article** | *"revise the whole article"* | Sequential walk; every change still individually approved |
+| **Paragraph-by-paragraph** (`/r-pp`) | `/r-pp` | Walk every paragraph; three diagnostic questions per paragraph before proposing |
+| **Deep paragraph-by-paragraph** (`/r-pp-a`) | `/r-pp-a` | Five-layer diagnostic (logic, structure, tone, citations, norms) per paragraph; proposals numbered by category |
+| **Dual peer review** (`/r-pr-2`) | `/r-pr-2` | Two simulated reviewers per section; convergence/divergence synthesis; reviewer-tagged modifications |
+| **Connector revision** (`/r-conn`) | `/r-conn` | Non-content pass: logical connectors, transitions, signposting. Diagnostic table + selective fix with A/R/M |
+| **Global revision** (`/r-global`) | `/r-global` | High-level, non-granular: seven lenses (thesis, architecture, proportionality, narrative, redundancy, terminology, norms) |
 
 Never collapse heterogeneous changes (citation + phrasing + structure) into one proposal. Split them into separate decisions.
 

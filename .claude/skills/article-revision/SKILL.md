@@ -21,6 +21,268 @@ description: |
 Operational layer that orchestrates the existing article-style and
 bibliography skills around a structured revision workflow.
 
+## Slash Commands
+
+| Command | Action |
+|---|---|
+| `/article-revision` | Full revision workflow from reviewer feedback |
+| `/r-pp` | **Revisione Paragrafo per Paragrafo** — walk every paragraph sequentially; for each, ask diagnostic questions, then propose modifications |
+| `/r-pp-a` | **Revisione Paragrafo per Paragrafo Approfondita** — as `/r-pp` but with deep diagnostic questions (content, structure, style, citations, norms) before proposing |
+| `/r-pr-2` | **Revisione Due Peer Reviewer** — simulate two independent peer reviewers reading the article; synthesise convergent/divergent feedback, present per-point with A/R/M |
+| `/r-conn` | **Revisione Connettori** — analyse and polish logical connectors, transitions, and signposting between paragraphs and sections |
+| `/r-global` | **Revisione Globale** — high-level, non-granular revision: overall structure, argument coherence, section proportionality, redundancy, terminology consistency |
+| `/r-bump` | Bump article version (hand off to `workflow/60-bump-version.md`) |
+| `/r-sheet` | Generate final revision sheet (hand off to `workflow/70-final-sheet.md`) |
+
+### Paragraph-by-Paragraph Modes (`/r-pp`, `/r-pp-a`)
+
+These modes perform a **proactive** revision walk over the entire article, paragraph by paragraph. Unlike the standard reviewer-feedback flow, the LLM actively diagnoses each paragraph before proposing changes.
+
+#### `/r-pp` — Standard Paragraph-by-Paragraph
+
+For each paragraph in sequence:
+
+1. **Show** the paragraph with context (preceding paragraph + current paragraph).
+2. **Ask** three standard diagnostic questions (adapted to `ARTICLE_LANG`):
+
+   | # | IT | EN |
+   |---|---|---|
+   | Q1 | L'argomento è chiaro e completo? | Is the argument clear and complete? |
+   | Q2 | Il paragrafo si collega bene al precedente? | Does it connect well to the previous paragraph? |
+   | Q3 | Ci sono problemi di stile, registro o citazioni? | Any issues with style, register, or citations? |
+
+3. **Wait** for user answers.
+4. **Propose** modifications based on user answers, using the standard A/R/M pattern.
+5. After decision on each proposal, ask: *"Ci sono altri cambiamenti in questo paragrafo?"* before advancing.
+6. **Advance** only on explicit command (`prossimo`, `next`, `passa al prossimo`).
+
+The user can pause with `pause` and resume later from the current paragraph.
+
+#### `/r-pp-a` — Deep Paragraph-by-Paragraph
+
+As `/r-pp`, but with an **extended diagnostic interview** before proposing. For each paragraph, the skill asks these five layered questions:
+
+| # | IT | EN |
+|---|---|---|
+| Q1 | L'argomento è logicamente completo? Mancano passaggi? | Is the argument logically complete? Any missing steps? |
+| Q2 | La struttura interna funziona? (topic sentence, sviluppo, chiusura) | Does the internal structure work? (topic sentence, development, closure) |
+| Q3 | Il tono e il registro sono appropriati alla rivista? | Is the tone and register appropriate for the journal? |
+| Q4 | Ogni affermazione è supportata da una citazione? Le citazioni sono formattate correttamente? | Is every claim backed by a citation? Are citations correctly formatted? |
+| Q5 | Il paragrafo rispetta le norme editoriali? (limiti, stile, terminologia) | Does the paragraph respect the editorial norms? (limits, style, terminology) |
+
+After collecting answers, the skill synthesises them into a unified proposal block, numbering each modification by diagnostic category. The user may accept/reject by category (e.g. `A struttura` or `R citazioni`).
+
+### `/r-pr-2` — Simulated Dual Peer Review
+
+This mode simulates two independent peer reviewers with distinct personalities:
+
+| Reviewer | Persona | Focus |
+|---|---|---|
+| **Reviewer A** | Rigorous, method-focused | Methodology, data, internal validity, statistics |
+| **Reviewer B** | Broad-view, theory-focused | Literature positioning, argument coherence, contribution clarity, writing quality |
+
+**Workflow:**
+
+1. **Load** the full article into context.
+2. **Generate** two independent sets of comments, section by section.
+3. **Present** a synthesis for each section:
+
+   ```
+   ## §<N> — <section title>
+
+   **Reviewer A:**
+   > <verbatim comment>
+
+   **Reviewer B:**
+   > <verbatim comment>
+
+   **Convergenza:** <points where both agree>
+   **Divergenza:** <points where they differ, with rationale>
+
+   **Proposta unificata:**
+   > <proposed text integrating both reviews>
+
+   **Modifiche:**
+   1. [A] <old> → <new> [(motivazione)]
+   2. [B] <old> → <new> [(motivazione)]
+   ...
+
+   **Δ**: chars +X / words +Y · risk: <low|medium|high>
+
+   **A/R/M?**
+   ```
+
+4. The user can accept/reject by reviewer tag: `A A 1,3` (accept Reviewer A's mods 1 and 3), `R B 2` (reject Reviewer B's mod 2).
+5. Advance section by section on explicit command.
+
+Each reviewer's comments are stored in `revisions/<article-slug>/peer-review-simulation-vN.md` for traceability.
+
+### `/r-conn` — Connector Revision
+
+A focused pass that examines the article's **logical scaffolding**: connectors, transition phrases, and signposting language. This mode does **not** rewrite content — it only adjusts the connective tissue between paragraphs and sections.
+
+**Scope:**
+- Inter-paragraph transitions (last sentence of P<N> → first sentence of P<N+1>)
+- Inter-section transitions (closing paragraph of §<N> → opening paragraph of §<N+1>)
+- Logical connectors within paragraphs (`therefore`, `however`, `moreover`, `in contrast`, `consequently`, `first`/`second`/`finally`)
+- Signposting language (`as discussed above`, `as we will see in §3`, `to summarise`)
+- Missing connectors where the logical relationship is implicit but should be explicit
+- Overused connectors (e.g. five `however` in one page)
+
+**IT connector reference table** (used when `ARTICLE_LANG=it`):
+
+| Logical relation | Preferred connectors | Avoid (weak/ambiguous) |
+|---|---|---|
+| Causa/effetto | *pertanto*, *di conseguenza*, *ne deriva che* | *quindi* (overused), *dunque* (informal) |
+| Contrasto | *tuttavia*, *ciononostante*, *al contrario* | *ma* (paratactic, weak at paragraph start) |
+| Aggiunta | *inoltre*, *per di più*, *si aggiunga che* | *e* (paratactic), *anche* (ambiguous scope) |
+| Esemplificazione | *per esempio*, *si consideri*, *è il caso di* | *tipo*, *come* (colloquial) |
+| Riformulazione | *in altri termini*, *vale a dire*, *ossia* | *cioè* (acceptable but informal) |
+| Concessione | *sebbene*, *benché*, *per quanto* | *anche se* (acceptable in some journals) |
+| Ordine/sequenza | *in primo luogo*, *in secondo luogo*, *infine* | *prima... poi...* (narrative, not academic) |
+| Riepilogo | *in sintesi*, *complessivamente*, *in definitiva* | *per farla breve* (colloquial) |
+| Rinvio interno | *come discusso in §X*, *si veda supra*, *come vedremo* | *come detto prima/dopo* (vague) |
+
+**EN connector reference table** (used when `ARTICLE_LANG=en`):
+
+| Logical relation | Preferred connectors | Avoid |
+|---|---|---|
+| Cause/effect | *therefore*, *consequently*, *as a result*, *thus* | *so* (informal), *hence* (archaic in some fields) |
+| Contrast | *however*, *nevertheless*, *in contrast*, *conversely* | *but* (weak at sentence start) |
+| Addition | *moreover*, *furthermore*, *in addition* | *and* (paratactic), *also* (vague) |
+| Exemplification | *for example*, *for instance*, *consider* | *like* (colloquial) |
+| Reformulation | *in other words*, *that is*, *namely* | *i.e.* (acceptable, prefer full form) |
+| Concession | *although*, *even though*, *while* | *despite* (needs noun phrase) |
+| Sequencing | *first*, *second*, *finally* | *firstly*, *secondly* (debated; follow journal norms) |
+| Summary | *in summary*, *overall*, *to conclude* | *to wrap up* (colloquial) |
+| Internal reference | *as discussed in §X*, *see above*, *as we will show* | *as said before* (vague) |
+
+**Workflow:**
+
+1. **Parse** the article into paragraphs and sections.
+2. **Extract** every paragraph boundary (last sentence of P<N> + first sentence of P<N+1>) into a list.
+3. **Extract** every section boundary (last paragraph of §<N> + first paragraph of §<N+1>).
+4. **Diagnose** each boundary: is the logical relationship explicit? Is the connector appropriate?
+5. **Present** findings as a diagnostic table, not one by one — the user gets a bird's-eye view:
+
+   ```
+   ## Connector Diagnostic — <article>
+
+   ### Inter-paragraph transitions
+
+   | Transition | Logical relation | Current connector | Issue | Proposal |
+   |---|---|---|---|---|
+   | P3→P4 | Contrast | *ma* | Weak at paragraph start | *Tuttavia* |
+   | P7→P8 | Cause/effect | (missing) | Implicit → needs connector | *Di conseguenza* |
+   | P12→P13 | Addition | *inoltre* | OK | — |
+
+   ### Inter-section transitions
+
+   | Transition | Logical relation | Current state | Issue | Proposal |
+   |---|---|---|---|---|
+   | §2→§3 | Sequence | (missing) | Abrupt topic shift | Add signposting line |
+   | §4→§5 | Summary + preview | OK | — | — |
+
+   ### Overused connectors
+
+   | Connector | Count | In paragraphs | Recommendation |
+   |---|---|---|---|
+   | *tuttavia* | 7 | P2, P4, P5, P9, P11, P14, P18 | Reduce to max 3; rephrase 4 |
+   ```
+
+6. **Ask** the user to select which transitions to fix: *"Quali transizioni vuoi sistemare? (es. 'P3→P4, P7→P8, §2→§3' oppure 'tutte')"*
+7. **Propose** modifications for the selected items using the standard A/R/M pattern (one point per transition group).
+8. **Apply** on Accept, advance on command.
+
+Each `[Overused]` item becomes a separate proposal asking to rephrase *N* occurrences. The user can specify which occurrences to keep and which to replace.
+
+### `/r-global` — Global / Holistic Revision
+
+A **non-granular, high-level** revision that examines the article as a whole organism. This mode does not descend into sentence-level edits — it operates at the structural, argumentative, and narrative level.
+
+**The seven lenses of global revision:**
+
+| # | Lens | Key question |
+|---|---|---|
+| 1 | **Thesis clarity** | Is the contribution/tesi stated explicitly and early? Is it falsifiable? |
+| 2 | **Argument architecture** | Does the sequence of sections build a coherent argument? Are there logical leaps or missing steps? |
+| 3 | **Section proportionality** | Are some sections bloated and others skeletal? Does the weight match the importance? |
+| 4 | **Narrative arc** | Does the article tell a compelling story? Intro → gap → method → findings → implications → conclusion? |
+| 5 | **Redundancy** | Are the same points made in multiple sections? Are there near-duplicate paragraphs? |
+| 6 | **Terminology consistency** | Is the same concept called by the same name throughout? Are key terms defined once and used consistently? |
+| 7 | **Norm alignment** | At the macro level, does the article structure match journal expectations? (e.g. IMRaD, theoretical→empirical→discussion) |
+
+**Workflow:**
+
+1. **Read** the full article into context.
+2. **Generate** a structured diagnostic report applying all seven lenses. This is presented as a single document — the user reviews the whole picture before any edits:
+
+   ```
+   ## Revisione Globale — <article>
+
+   ### 1. Thesis clarity
+   - **Dov'è la tesi?** §1, riga X: «<quote>»
+   - **È esplicita?** Sì / Parzialmente / No
+   - **È falsificabile?** Sì / No — <perché>
+   - **Raccomandazione:** <what to adjust>
+
+   ### 2. Argument architecture
+   - **Mappa argomentativa:**
+     §1: <role in argument>
+     §2: <role in argument>
+     §3: <role in argument>
+     → §4: <gap: missing transition between method and findings>
+     §5: <role in argument>
+     §6: <role in argument>
+   - **Salti logici:** <list>
+   - **Passaggi mancanti:** <list>
+
+   ### 3. Section proportionality
+   | Section | Chars | % of total | Recommended | Status |
+   |---|---|---|---|---|
+   | §1 Intro | 3200 | 12% | 10-15% | OK |
+   | §2 Literature | 8200 | 31% | 15-20% | ⚠️ Overweight |
+   | §3 Method | 4100 | 16% | 15-20% | OK |
+   | §4 Results | 5200 | 20% | 20-25% | ⚠️ Slightly under |
+   | §5 Discussion | 4100 | 16% | 20-25% | ⚠️ Under |
+   | §6 Conclusion | 1400 | 5% | 5-10% | OK |
+
+   ### 4. Narrative arc
+   - **Apertura:** <evaluation>
+   - **Tensione:** <evaluation — does the gap motivate the study?>
+   - **Climax:** <evaluation — do the findings deliver?>
+   - **Risoluzione:** <evaluation — does the conclusion close the loop?>
+   - **Raccomandazione:** <high-level direction>
+
+   ### 5. Redundancy
+   - **Paragrafi quasi-duplicati:** P12 ~ P28 (both define the dependent variable)
+   - **Argomenti ripetuti:** The limitation about sample size appears in §3, §5, and §6
+   - **Raccomandazione:** <which to consolidate>
+
+   ### 6. Terminology consistency
+   | Termine | Definizione in | Usato anche come | Issue |
+   |---|---|---|---|
+   | *emotional labour* | §2, riga 45 | *emotional work* in §4, riga 12 | Inconsistente |
+   | *self-efficacy* | §2, riga 78 | — | OK |
+
+   ### 7. Norm alignment
+   - **Struttura attesa:** IMRaD
+   - **Struttura effettiva:** Intro → Literature → Hypotheses → Method → Results → Discussion → Conclusion
+   - **Scostamenti:** Literature section longer than journal norm; hypothese section is a separate heading (journal expects them embedded in intro)
+   - **Raccomandazione:** <what to adjust>
+
+   ---
+   **Azioni suggerite:** N interventi strutturali, M interventi di superficie.
+   Quali vuoi affrontare? (es. "tutte le proporzioni + terminologia" oppure "solo la mappa argomentativa")
+   ```
+
+3. **Wait** for the user to select which lenses to act on.
+4. For each selected lens, generate one or more revision points using the A/R/M pattern. Each point addresses a specific structural issue (e.g. "Cut §2 from 8200 to 5000 chars", "Rename 'emotional work' → 'emotional labour' globally").
+5. **Apply** on Accept. For structural changes (reordering, cutting), the skill edits the article with surgical precision. For global renaming, use `replaceAll`.
+6. **Advance** on explicit command.
+
+This mode is designed to be run **before** granular revision (`/r-pp`, standard reviewer feedback) — fix the architecture first, then the bricks.
+
 ## Authority
 
 Editorial rules in priority order:
@@ -102,6 +364,19 @@ Optional:
 4. `workflow/30-iterate-points.md` — for each point, propose, ask
    `Accept / Reject / Modify`, apply on Accept. **Never commit
    automatically** — the user controls git.
+4a. `workflow/31-paragraph-by-paragraph.md` — triggered by `/r-pp` or
+   `/r-pp-a`. Walk every paragraph sequentially with diagnostic questions
+   before proposing. Deep mode (`/r-pp-a`) uses five-layer diagnostics.
+4b. `workflow/32-peer-review-simulation.md` — triggered by `/r-pr-2`.
+   Simulate two peer reviewers with distinct personas (method-focused,
+   theory-focused), synthesise convergent/divergent feedback per section.
+4c. `workflow/33-connector-revision.md` — triggered by `/r-conn`.
+   Analyse and polish logical connectors, transitions, and signposting
+   between paragraphs and sections. Does not rewrite content.
+4d. `workflow/34-global-revision.md` — triggered by `/r-global`.
+   High-level, non-granular revision across seven lenses: thesis clarity,
+   argument architecture, section proportionality, narrative arc,
+   redundancy, terminology consistency, norm alignment.
 5. `workflow/40-bibliography-check.md` — when a citation is touched or new
    keys are introduced.
 6. `workflow/50-sample-description.md` — when the methodology asks for a
@@ -234,6 +509,11 @@ point in the workflow:
 | **Fragment** (sentence-level / inline) | *"fix this sentence"*, *"adjust this quotation"*, *"replace X with Y"* | Smallest possible diff. Touches a single sentence, citation, term, formatting fix. Goes through the same `Original / Proposal / Decision` pattern with surgical context. |
 | **Paragraph** (default during reviewer revision) | *"revise this paragraph"*, *"section 3 discussion"* | Operates on a coherent block (one paragraph or one numbered subsection). Standard mode for processing reviewer points. |
 | **Whole article** (full pass) | *"revise the whole article"*, *"check coherence from start to finish"* | Sequential walk through every section, point by point. Each candidate change is still presented individually for `Accept / Reject / Modify` — the user is not asked to approve a single mass-replacement. |
+| **Paragraph-by-paragraph** (`/r-pp`) | `/r-pp` | Walk every paragraph sequentially. For each: ask three diagnostic questions (clarity, connection, style/citations), collect answers, propose modifications. A/R/M per modification. |
+| **Deep paragraph-by-paragraph** (`/r-pp-a`) | `/r-pp-a` | As `/r-pp` but with five-layer diagnostic interview (logic, structure, tone, citations, norms). Proposals numbered by category; user can accept/reject by category. |
+| **Dual peer review** (`/r-pr-2`) | `/r-pr-2` | Simulate two independent peer reviewers (method-focused + theory-focused). Per section: present both reviews, synthesise convergence/divergence, unified proposal with reviewer-tagged modifications. |
+| **Connector revision** (`/r-conn`) | `/r-conn` | Non-content pass: examine logical connectors, inter-paragraph transitions, inter-section transitions, signposting. Diagnostic table + selective fix with A/R/M. |
+| **Global revision** (`/r-global`) | `/r-global` | High-level, non-granular pass through seven lenses (thesis, architecture, proportionality, narrative, redundancy, terminology, norms). Diagnostic report → user selects lenses → structural A/R/M points. |
 
 For paragraph and whole-article scopes, break into more granular points
 when the change touches separate concerns (e.g. a citation correction
@@ -243,6 +523,24 @@ decisions, two micro-changes).
 Never collapse multiple semantic changes into a single proposal just to
 save chat tokens — the user must be able to accept one and reject the
 other.
+
+## Mandatory Bump at Session Start
+
+**Every new revision session MUST start with a version bump.** This is non-negotiable. The skill does not wait for the user to accumulate edits before bumping — the bump is the first action after setup, before any revision work begins.
+
+**Rule:**
+- After `10-setup.md` completes and the active article is identified, immediately propose a version bump via `60-bump-version.md`.
+- If the bump is using the existing vN filename (i.e. no changes have been made yet to vN), the bump copies vN → v(N+1) with a fresh timestamp. All subsequent edits go into v(N+1).
+- Only after the bump is confirmed and completed does the skill proceed to the revision workflow (reviewer feedback, `/r-pp`, `/r-pr-2`, `/r-conn`, `/r-global`, etc.).
+
+**Exception:** If the setup detects that the article has *already* been bumped during this same session (i.e. `accepted_since_bump: 0` and a bump entry exists in the project file with today's date), skip the bump — do not double-bump.
+
+**The `AUTO_BUMP_THRESHOLD` still applies** for mid-session bumps: after N accepted changes, the skill proposes an additional bump. This is separate from the mandatory session-start bump.
+
+**Suggested commit message for the session-start bump:**
+```
+bump: vN → v(N+1) (start revision session)
+```
 
 ## Skill is **not** for
 

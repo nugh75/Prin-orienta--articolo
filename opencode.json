@@ -1,0 +1,37 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "command": {
+    "article-revision": {
+      "description": "Full revision workflow from reviewer feedback",
+      "template": "Carica la skill article-revision e segui il workflow di revisione standard. Esegui il bump obbligatorio a inizio sessione (10-setup.md step 5), poi chiedimi i commenti del reviewer. Se non ho ancora commenti, fammi scegliere la modalità."
+    },
+    "r-pp": {
+      "description": "Revisione Paragrafo per Paragrafo — walk every paragraph with 3 diagnostic questions",
+      "template": "Carica la skill article-revision con `skill(\"article-revision\")` e segui il workflow `workflow/31-paragraph-by-paragraph.md` in modalità standard (`/r-pp`). Esegui il bump obbligatorio (10-setup.md step 5), poi per ogni paragrafo dell'articolo fai 3 domande diagnostiche (chiarezza, collegamento, stile/citazioni), attendi le mie risposte, e proponi modifiche con pattern A/R/M."
+    },
+    "r-pp-a": {
+      "description": "Revisione Paragrafo per Paragrafo Approfondita — deep 5-layer diagnostic per paragraph",
+      "template": "Carica la skill article-revision con `skill(\"article-revision\")` e segui il workflow `workflow/31-paragraph-by-paragraph.md` in modalità approfondita (`/r-pp-a`). Esegui il bump obbligatorio (10-setup.md step 5), poi per ogni paragrafo fai 5 domande approfondite (logica, struttura, tono, citazioni, norme), attendi le mie risposte, e proponi modifiche con pattern A/R/M numerate per categoria."
+    },
+    "r-pr-2": {
+      "description": "Revisione Due Peer Reviewer — simulate two peer reviewers",
+      "template": "Carica la skill article-revision con `skill(\"article-revision\")` e segui il workflow `workflow/32-peer-review-simulation.md`. Esegui il bump obbligatorio (10-setup.md step 5), poi simula due peer reviewer (A: metodologo, B: teorico) sezione per sezione. Per ogni sezione mostra i commenti di entrambi, classifica convergenza/divergenza, proponi modifiche unificate con tag [A]/[B]/[A+B], e attendi le mie decisioni A/R/M."
+    },
+    "r-conn": {
+      "description": "Revisione Connettori — analyse and polish logical connectors and transitions",
+      "template": "Carica la skill article-revision con `skill(\"article-revision\")` e segui il workflow `workflow/33-connector-revision.md`. Esegui il bump obbligatorio (10-setup.md step 5), genera la tabella diagnostica di tutte le transizioni inter-paragrafo e inter-sezione, connettori sovrautilizzati, e segnaletica interna. Fammi selezionare quali sistemare, poi proponi modifiche con pattern A/R/M."
+    },
+    "r-global": {
+      "description": "Revisione Globale — high-level 7-lens structural review",
+      "template": "Carica la skill article-revision con `skill(\"article-revision\")` e segui il workflow `workflow/34-global-revision.md`. Esegui il bump obbligatorio (10-setup.md step 5), applica le 7 lenti diagnostiche (tesi, architettura, proporzionalità, narrativa, ridondanza, terminologia, norme), presenta il report completo, fammi scegliere quali lenti affrontare, e proponi modifiche strutturali con pattern A/R/M."
+    },
+    "r-bump": {
+      "description": "Bump article version",
+      "template": "Carica la skill article-revision con `skill(\"article-revision\")` e segui il workflow `workflow/60-bump-version.md` per creare una nuova versione dell'articolo (vN → vN+1). Mostra il conteggio delle modifiche accettate, chiedi conferma, esegui lo script new_version.sh."
+    },
+    "r-sheet": {
+      "description": "Generate final revision sheet",
+      "template": "Carica la skill article-revision con `skill(\"article-revision\")` e segui il workflow `workflow/70-final-sheet.md` per generare il final sheet della revisione corrente."
+    }
+  }
+}
