@@ -28,7 +28,7 @@ bibliography skills around a structured revision workflow.
 | `/article-revision` | Full revision workflow from reviewer feedback |
 | `/r-pp` | **Revisione Paragrafo per Paragrafo** — walk every paragraph sequentially; for each, ask diagnostic questions, then propose modifications |
 | `/r-pp-a` | **Revisione Paragrafo per Paragrafo Approfondita** — as `/r-pp` but with deep diagnostic questions (content, structure, style, citations, norms) before proposing |
-| `/r-pr-2` | **Revisione Due Peer Reviewer** — simulate two independent peer reviewers reading the article; synthesise convergent/divergent feedback, present per-point with A/R/M |
+| `/r-pr-2` | **Revisione Due Peer Reviewer** — simulate two independent peer reviewers; generate Standalone reviewer documents in `revisions/<article-slug>/` without interactive A/R/M; the documents feed subsequent revision passes |
 | `/r-conn` | **Revisione Connettori** — analyse and polish logical connectors, transitions, and signposting between paragraphs and sections |
 | `/r-global` | **Revisione Globale** — high-level, non-granular revision: overall structure, argument coherence, section proportionality, redundancy, terminology consistency |
 | `/r-bump` | Bump article version (hand off to `workflow/60-bump-version.md`) |
@@ -72,50 +72,33 @@ As `/r-pp`, but with an **extended diagnostic interview** before proposing. For 
 
 After collecting answers, the skill synthesises them into a unified proposal block, numbering each modification by diagnostic category. The user may accept/reject by category (e.g. `A struttura` or `R citazioni`).
 
-### `/r-pr-2` — Simulated Dual Peer Review
+### `/r-pr-2` — Standalone Dual Peer Review (Document Generation)
 
-This mode simulates two independent peer reviewers with distinct personalities:
+This mode simulates two independent peer reviewers with distinct personas and writes their reports as standalone Markdown documents in `revisions/<article-slug>/`. It does **not** run an interactive A/R/M loop — the documents become input for subsequent revision passes (`/r-pp-a`, `/r-pp`, `/r-global`, `/r-conn`).
 
 | Reviewer | Persona | Focus |
 |---|---|---|
 | **Reviewer A** | Rigorous, method-focused | Methodology, data, internal validity, statistics |
 | **Reviewer B** | Broad-view, theory-focused | Literature positioning, argument coherence, contribution clarity, writing quality |
 
+**Output files** (written to `revisions/<article-slug>/`):
+
+| File | Content |
+|---|---|
+| `reviewer-a-vN.md` | Full Reviewer A report: per-section comments, flagged issues, overall assessment |
+| `reviewer-b-vN.md` | Full Reviewer B report: per-section comments, flagged issues, overall assessment |
+| `peer-review-synthesis-vN.md` | Convergence/divergence analysis, unified proposal with [A]/[B]/[A+B] tags |
+
 **Workflow:**
 
-1. **Load** the full article into context.
-2. **Generate** two independent sets of comments, section by section.
-3. **Present** a synthesis for each section:
+1. **Setup** — Run `10-setup.md` (including mandatory bump). Load the full article.
+2. **Parse** — Split article into sections by heading level (`§1`, `§2`, ...).
+3. **Generate Reviewer A** — Section by section, apply the Methodologist persona. Write `reviewer-a-vN.md` with: per-section numbered comments, flagged issues (reproducibility, validity, statistical concerns), and an overall assessment with priority ranking.
+4. **Generate Reviewer B** — Section by section, apply the Theoretician persona. Write `reviewer-b-vN.md` with: per-section numbered comments, flagged issues (literature positioning, argument coherence, contribution clarity), and an overall assessment with priority ranking.
+5. **Synthesise** — Compare both reports. Classify each observation as Convergent (C: both agree), Divergent (D: they disagree), or Independent (I: one reviewer only). Write `peer-review-synthesis-vN.md` with: convergence matrix per section, unified proposal with modifications tagged [A], [B], or [A+B], and a priority-ordered action list.
+6. **Notify** — Output a one-page summary in chat: section count, convergent/divergent/independent counts, top-priority [A+B] items, file paths. The user then decides which revision command to run next.
 
-   ```
-   ## §<N> — <section title>
-
-   **Reviewer A:**
-   > <verbatim comment>
-
-   **Reviewer B:**
-   > <verbatim comment>
-
-   **Convergenza:** <points where both agree>
-   **Divergenza:** <points where they differ, with rationale>
-
-   **Proposta unificata:**
-   > <proposed text integrating both reviews>
-
-   **Modifiche:**
-   1. [A] <old> → <new> [(motivazione)]
-   2. [B] <old> → <new> [(motivazione)]
-   ...
-
-   **Δ**: chars +X / words +Y · risk: <low|medium|high>
-
-   **A/R/M?**
-   ```
-
-4. The user can accept/reject by reviewer tag: `A A 1,3` (accept Reviewer A's mods 1 and 3), `R B 2` (reject Reviewer B's mod 2).
-5. Advance section by section on explicit command.
-
-Each reviewer's comments are stored in `revisions/<article-slug>/peer-review-simulation-vN.md` for traceability.
+**No interactive A/R/M.** The synthesis document lists modifications with tags but does NOT apply them. The user triggers application later via `/r-pp-a`, `/r-pp`, `/r-global`, or `/r-conn`, referencing the synthesis document.
 
 ### `/r-conn` — Connector Revision
 
@@ -368,8 +351,9 @@ Optional:
    `/r-pp-a`. Walk every paragraph sequentially with diagnostic questions
    before proposing. Deep mode (`/r-pp-a`) uses five-layer diagnostics.
 4b. `workflow/32-peer-review-simulation.md` — triggered by `/r-pr-2`.
-   Simulate two peer reviewers with distinct personas (method-focused,
-   theory-focused), synthesise convergent/divergent feedback per section.
+   Generate two standalone reviewer documents in `revisions/<article-slug>/`
+   (method-focused, theory-focused) plus a synthesis document. No interactive
+   A/R/M — the documents feed subsequent revision passes.
 4c. `workflow/33-connector-revision.md` — triggered by `/r-conn`.
    Analyse and polish logical connectors, transitions, and signposting
    between paragraphs and sections. Does not rewrite content.
@@ -511,7 +495,7 @@ point in the workflow:
 | **Whole article** (full pass) | *"revise the whole article"*, *"check coherence from start to finish"* | Sequential walk through every section, point by point. Each candidate change is still presented individually for `Accept / Reject / Modify` — the user is not asked to approve a single mass-replacement. |
 | **Paragraph-by-paragraph** (`/r-pp`) | `/r-pp` | Walk every paragraph sequentially. For each: ask three diagnostic questions (clarity, connection, style/citations), collect answers, propose modifications. A/R/M per modification. |
 | **Deep paragraph-by-paragraph** (`/r-pp-a`) | `/r-pp-a` | As `/r-pp` but with five-layer diagnostic interview (logic, structure, tone, citations, norms). Proposals numbered by category; user can accept/reject by category. |
-| **Dual peer review** (`/r-pr-2`) | `/r-pr-2` | Simulate two independent peer reviewers (method-focused + theory-focused). Per section: present both reviews, synthesise convergence/divergence, unified proposal with reviewer-tagged modifications. |
+| **Dual peer review** (`/r-pr-2`) | `/r-pr-2` | Generate two standalone reviewer reports (method-focused + theory-focused) + synthesis document in `revisions/<article-slug>/`. No interactive A/R/M — output files feed subsequent revision commands (`/r-pp-a`, `/r-global`, etc.). |
 | **Connector revision** (`/r-conn`) | `/r-conn` | Non-content pass: examine logical connectors, inter-paragraph transitions, inter-section transitions, signposting. Diagnostic table + selective fix with A/R/M. |
 | **Global revision** (`/r-global`) | `/r-global` | High-level, non-granular pass through seven lenses (thesis, architecture, proportionality, narrative, redundancy, terminology, norms). Diagnostic report → user selects lenses → structural A/R/M points. |
 

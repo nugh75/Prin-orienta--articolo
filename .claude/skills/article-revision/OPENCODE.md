@@ -11,7 +11,7 @@ The two files (`AGENTS.md` and `OPENCODE.md`) carry the same workflow. Edit one 
 | `/article-revision` | Full revision workflow from reviewer feedback |
 | `/r-pp` | Revisione Paragrafo per Paragrafo — 3 diagnostic questions per paragraph |
 | `/r-pp-a` | Revisione Paragrafo per Paragrafo Approfondita — 5-layer deep diagnostic |
-| `/r-pr-2` | Dual Peer Reviewer simulation (methodologist + theoretician) |
+| `/r-pr-2` | Dual Peer Reviewer — generate standalone reports + synthesis in `revisions/` (no interactive A/R/M) |
 | `/r-conn` | Connector revision: transitions, signposting, overused connectors |
 | `/r-global` | Global revision: 7-lens structural review (non-granular) |
 | `/r-bump` | Bump article version (vN → vN+1) |
