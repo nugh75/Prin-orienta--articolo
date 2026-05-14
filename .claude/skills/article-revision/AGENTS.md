@@ -112,24 +112,50 @@ For every revision proposal, output exactly this structure:
 **Original** (`<article>:<line-range>`)
 > <verbatim text>
 
-**Proposal**
-> <proposed text>
+**Proposta**
+> <proposed full text>
 
-**Δ**: chars <signed> / words <signed> · bibliography: <signed> entries · risk: <low|medium|high>
+**Modifiche:**
+1. `<old>` → `<new>` [(motivazione)]
+2. `<old>` → `<new>` [(motivazione)]
+...
+
+**Δ**: chars <signed> / words <signed> · risk: <low|medium|high>
 
 **Norms respected**: <list>
 **Possible exceptions**: <list, with reason>
 
-**Decision?** Accept / Reject / Modify
+**A/R/M?** (indicare i numeri delle modifiche, es. "A 2,4" oppure "M 3: sostituire X con Y")
 ```
 
 Then **wait** for the user. Never apply pre-emptively.
 
-On `Accept`: edit the file(s), update the project file, increment the *accepted-since-last-bump* counter (HTML comment in the project file). **Do not commit.** Acknowledge briefly. If the counter reached `AUTO_BUMP_THRESHOLD`, propose a version bump.
+Each modification within a paragraph is numbered. The user can accept/reject individual changes:
+- `A 1,3` → accept modifications 1 and 3 only.
+- `R 2` → reject modification 2.
+- `M 4: <direction>` → modify modification 4 as specified.
+- `A` (no numbers) → accept all.
+- `R` (no numbers) → reject entire point.
 
-On `Reject`: annotate `Rejected` + reason in the project file. No file edits.
+### After applying changes
 
-On `Modify`: ask for direction, regenerate the proposal, repeat. After the eventual `Accept`, label the point `Modified` (not `Accepted`).
+Once modifications are applied, **do not advance** automatically. Output:
+
+```
+Applicate modifiche <numbers>. [Restano in sospeso le modifiche <numbers>.] Ci sono altri cambiamenti da fare in questo paragrafo?
+```
+
+And **wait** for an explicit command (e.g. "no, prossimo paragrafo", "next", "passa al prossimo").
+
+On `Accept` (selected numbers): edit the file(s), update the project file, increment the *accepted-since-last-bump* counter. **Do not commit.** Ask for further changes on the same paragraph.
+
+On `Reject` (selected numbers): annotate rejected + reason. No file edits. Ask for further changes.
+
+On `Reject` (entire point): annotate rejected + reason. Advance to next point.
+
+On `Modify <N>: <direction>`: regenerate modification N per user direction. Re-present it.
+
+Silent advance only on explicit user command ("prossimo", "next", etc.).
 
 ---
 

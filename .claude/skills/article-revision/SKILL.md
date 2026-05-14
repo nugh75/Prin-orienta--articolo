@@ -122,25 +122,53 @@ step that *should* run.
 For every revision point, output exactly this shape in chat:
 
 ```
-## Point N — <short title>
+## Point N — <short title> · scope: <fragment|paragraph|whole article>
 
 **Original** (`<file>:<line-range>`)
 > <verbatim text>
 
-**Proposal**
-> <proposed text>
+**Proposta**
+> <proposed full text>
 
-**Δ**: chars +X / words +Y · bibliography: ±Z entries · risk: <low|medium|high>
-**Decision?** Accept / Reject / Modify
+**Modifiche:**
+1. `<old>` → `<new>` [(motivazione)]
+2. `<old>` → `<new>` [(motivazione)]
+...
+
+**Δ**: chars +X / words +Y · risk: <low|medium|high>
+
+**A/R/M?** (indicare i numeri delle modifiche, es. "A 2,4" oppure "M 3: sostituire X con Y")
 ```
 
 Then **wait** for the user. Do not pre-emptively apply.
 
-- `Accept` → apply via Edit, mark point as `Accepted` in the project file, increment the *accepted-since-last-bump* counter, advance to next. **Do not commit.** When the counter reaches `AUTO_BUMP_THRESHOLD`, suggest a version bump (see step 7).
-- `Reject` → annotate `Rejected` + reason, advance.
-- `Modify` → ask the user for direction, regenerate the proposal, repeat.
+Each modification within a paragraph is numbered, so the user can accept or reject individual changes with precision:
+- `A 1,3` → accept modifications 1 and 3 only.
+- `R 2` → reject modification 2.
+- `M 4: <direzione>` → modify modification 4 as specified.
 
-If the proposal involves multiple separate edits (e.g. an inline citation + a bibliography entry), still present them as a single coherent block, and apply them in one go.
+If the user responds with `A` without numbers, all modifications are accepted.
+If the user responds with `R` without numbers, the entire point is rejected.
+
+### After applying changes
+
+Once modifications are applied, **do not advance** to the next point automatically. Instead, output:
+
+```
+Applicate modifiche <numeri>. [Restano in sospeso le modifiche <numeri>.] Ci sono altri cambiamenti da fare in questo paragrafo?
+```
+
+And **wait** for an explicit command from the user (e.g. "A 1,3", "M 5: ...", "no, prossimo paragrafo", "passa al prossimo").
+
+### Handling responses
+
+- `Accept` (with selected numbers) → apply via Edit only the numbered modifications. Mark applied modifications as `Accepted` in the project file. Increment the *accepted-since-last-bump* counter. **Do not commit.** When the counter reaches `AUTO_BUMP_THRESHOLD`, suggest a version bump (see step 7). Ask for further changes on the same paragraph.
+- `Reject` (with selected numbers) → annotate those modifications as `Rejected` + reason. No file edits for them. Ask for further changes on the same paragraph.
+- `Reject` (entire point) → annotate entire point `Rejected` + reason. Advance to next point.
+- `Modify <N>: <direzione>` → regenerate modification N according to the user's direction. Re-present the updated modification with the same numbering. Repeat until accepted or rejected.
+- Silent advance to the next point only when the user gives an explicit command (e.g. "no, prossimo", "passa al prossimo paragrafo", "next").
+
+If the proposal involves multiple separate edits (e.g. an inline citation + a bibliography entry), still present them as numbered modifications within a single coherent block, allowing the user to accept each independently.
 
 ## Language auto-detection
 
