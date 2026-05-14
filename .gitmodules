@@ -1,0 +1,3 @@
+[submodule ".claude/skills/bibliography-verify"]
+	path = .claude/skills/bibliography-verify
+	url = git@github.com:nugh75/bibliography-verify-skill.git
