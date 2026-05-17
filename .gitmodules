@@ -1,3 +1,9 @@
 [submodule ".claude/skills/bibliography-verify"]
 	path = .claude/skills/bibliography-verify
-	url = git@github.com:nugh75/bibliography-verify-skill.git
+	url = https://github.com/nugh75/bibliography-verify-skill.git
+[submodule ".claude/skills/article-revision"]
+	path = .claude/skills/article-revision
+	url = https://github.com/nugh75/article-revision-skill.git
+[submodule ".claude/skills/tone-of-voice"]
+	path = .claude/skills/tone-of-voice
+	url = https://github.com/nugh75/tone-of-voice-skill.git

@@ -42,4 +42,10 @@ revisions/*.md
 !revisions/README.md
 
 # --- External skill repos ---
-.claude/skills/tone-of-voice/
+# Skills used by this project are tracked as git submodules under .claude/skills/.
+
+# --- External CLI/tool repos ---
+doaj-pp-cli/
+openalex-pp-cli/
+opac-sbn-pp-cli/
+semantic-scholar-pp-cli/
