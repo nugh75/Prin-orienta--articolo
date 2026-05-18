@@ -93,3 +93,28 @@ revisions/                        # Revision plans and final sheets
 data/                             # Optional: sample data for stats
 .env                              # Config (EDITORIAL_LIMIT_CHARS, etc.)
 ```
+
+---
+
+# Fonte dati ORIENTA+ (portale)
+
+**I numeri dell'articolo (IIPO, medie dimensionali, conteggi, attività, cluster, statistiche territoriali) provengono dalla piattaforma ORIENTA+, il cui codice e dati stanno in `/home/nugh75/LIste`** (vedi `.env`: `ORIENTA_DATA_PATH`, `ORIENTA_MASTER_CSV`). La dashboard pubblica `https://orienta.ai4educ.org/` è l'app Streamlit in `LIste/app/` (JS-rendered: NON estraibile via WebFetch — leggere i file locali).
+
+## Regola di integrità (vincolante)
+Quando l'articolo richiede una cifra (DS, correlazioni di sensitività, scostamenti di post-stratificazione, medie, percentuali) **NON inventarla e NON copiarla da un documento di review**: ricavarla dai dati in `/home/nugh75/LIste`. Se non ricavabile lì, lasciare il valore aperto e segnalarlo, mai un numero plausibile.
+
+## Dove guardare
+| Cosa | Percorso |
+|---|---|
+| Tabella master per-scuola (2.095 righe, 54 col) | `LIste/data/analysis_summary.csv` |
+| IIPO per scuola | colonna `ptof_idpo` del master CSV |
+| Definizione IIPO | `LIste/src/processing/align_metadata.py:545` — `calc_avg([m for m in all_means if m>0])` (media delle medie dimensionali non nulle) |
+| Media IIPO come la calcola la dashboard | `df['ptof_idpo'].mean()` (vedi `LIste/src/taskrunner/web/routes/strata.py:194`) |
+| Analisi per-PTOF (json/md) | `LIste/analysis_results/` |
+| Sintesi/aggregati | `LIste/reports/`, `LIste/docs/analysis/` |
+| Registro attività / cluster | `LIste/data/activity_registry.json`, `LIste/data/analysis_registry.json` |
+
+Campi utili nel master: `ordine_grado` (`I Grado` n=246, `II Grado` n=693, …), `statale_paritaria`, `area_geografica`, `territorio`, `2_1_score` (dim. Strutturale), `mean_finalita|mean_obiettivi|mean_governance|mean_didattica_orientativa|mean_opportunita`.
+
+## Caveat di riproducibilità
+Il calcolo naive «media di 6 colonne» **non** riproduce le medie IIPO pubblicate (3,44 I / 3,48 II): usare `ptof_idpo`, e per riprodurre i totali delle tabelle replicare il filtro/snapshot della dashboard, non una formula propria. Differenze residue → segnalarle, non aggiustare i numeri.
